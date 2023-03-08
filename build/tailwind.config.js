@@ -19,12 +19,20 @@ module.exports = {
       colors: {
         dark: {
           primary: {
-            900: '#A783F8',
-            50: '#181a1b',
+            // // 900: '#A783F8',
+            // 900: '#CBE4DE',
+            // 50: '#181a1b',
+            DEFAULT: '#CBE4DE',
+            400: '#E6F2EF',
+            500: '#CBE4DE',
+            600: '#A6D1C7',
+            700: '#81BEAF',
+            800: '#5CAA98',
+            900: '#478878',
           },
           background: {
-            DEFAULT: '#1b1d1e',
-            keyboard: '#222426',
+            DEFAULT: '#2C3333',
+            keyboard: '#2E4F4F',
           },
           red: {
             900: '#e17d7d',

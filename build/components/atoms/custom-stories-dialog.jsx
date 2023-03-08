@@ -67,6 +67,7 @@ const CustomStoriesDialog = ({ visible, setVisible }) => {
 
   useEffect(() => {
     if (visible && ref.current) {
+      // @ts-ignore
       ref.current.focus();
     }
   }, [visible]);
@@ -84,7 +85,7 @@ const CustomStoriesDialog = ({ visible, setVisible }) => {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           ref={ref}
-          className="bg-white dark:bg-dark-primary-50 flex flex-col w-[35rem] min-w-[13rem] cursor-auto rounded-md overflow-hidden shadow-xl relative bottom-20 max-w-[35rem]"
+          className="bg-white dark:bg-dark-background-keyboard flex flex-col w-[35rem] min-w-[13rem] cursor-auto rounded-md overflow-hidden shadow-xl relative bottom-20 max-w-[35rem]"
         >
           <div className="flex flex-col gap-3 p-6">
             <div className="flex justify-between items-center pb-4">
@@ -186,7 +187,7 @@ const CustomStoriesDialog = ({ visible, setVisible }) => {
                   value={values.name}
                   onChange={handleChange('name')}
                   placeholder="Story Name"
-                  className="text-sm outline-none border rounded-sm p-2 focus:border-primary-300"
+                  className="text-sm outline-none border rounded-sm p-2 focus:border-primary-300 dark:bg-dark-background"
                 />
               </div>
               <div className="flex flex-col gap-1">
@@ -201,12 +202,12 @@ const CustomStoriesDialog = ({ visible, setVisible }) => {
                   value={values.story_text}
                   onChange={handleChange('story_text')}
                   placeholder="Story Name"
-                  className="text-sm outline-none border rounded-sm p-2 focus:border-primary-300"
-                  rows="5"
+                  className="text-sm outline-none border rounded-sm p-2 focus:border-primary-300 dark:bg-dark-background"
+                  rows={5}
                 />
               </div>
               <div className="flex justify-end">
-                <button className="pb-1 pt-2 border border-primary-500 text-primary-500 rounded-sm px-6 font-bold hover:bg-slate-100">
+                <button className="py-2 border border-primary-500 dark:border-dark-primary-900 text-primary-500 dark:text-dark-primary-600 rounded-sm px-6 font-bold hover:bg-slate-100 dark:hover:bg-gray-800">
                   {isUpdateMode ? 'Update' : 'Add'}
                 </button>
               </div>

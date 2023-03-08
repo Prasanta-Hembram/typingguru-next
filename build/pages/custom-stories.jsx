@@ -31,6 +31,7 @@ const CustomStories = () => {
   const [activeKey, setactiveKey] = useState(null);
 
   const [grandString, setGrandString] = useState(
+    // eslint-disable-next-line no-nested-ternary
     customStories.length > 0
       ? customStories[configs.customStoryIndex || 0]
         ? customStories[configs.customStoryIndex || 0].story_text
@@ -173,6 +174,7 @@ const CustomStories = () => {
 
   useEffect(() => {
     setGrandString(
+      // eslint-disable-next-line no-nested-ternary
       customStories.length > 0
         ? customStories[configs.customStoryIndex || 0]
           ? customStories[configs.customStoryIndex || 0].story_text
@@ -210,13 +212,14 @@ const CustomStories = () => {
             animate={{ scaleX: 1 }}
             transition={{ duration: 0.25 }}
             className={classNames(
-              'story-typing tracking-wide text-xl max-w-screen-md bg-primary-50 dark:bg-dark-primary-50 shadow-xl rounded-lg p-3 relative bottom-16 xl:bottom-12',
+              'story-typing tracking-wide text-xl max-w-screen-md bg-primary-50 dark:bg-[#25282a] shadow-xl rounded-lg p-3 relative bottom-16 xl:bottom-12',
               configs.language
             )}
           >
-            <span className="text-primary-600">
+            <span className="text-primary-600 dark:text-dark-primary-800">
               {dispStrings.str1.split('').map((item, indx) => {
                 return (
+                  // eslint-disable-next-line react/jsx-key
                   <span
                     className={classNames({
                       'text-red-500': errorIndex[mainIndex + indx],
@@ -227,15 +230,17 @@ const CustomStories = () => {
                 );
               })}
             </span>
-            <span className="relative cursor text-primary-400">
+            <span className="relative cursor text-primary-400 dark:text-dark-primary-600">
               {dispStrings.str2}
             </span>
-            <span className="text-primary-400">{dispStrings.str3}</span>
+            <span className="text-primary-400 dark:text-dark-primary-600">
+              {dispStrings.str3}
+            </span>
 
             <input
               className="opacity-0 absolute height-full w-full mx-auto my-0 left-0"
               type="text"
-              maxLength="0"
+              maxLength={0}
               onKeyPress={handleKeyPress}
               ref={inpRef}
               onBlur={() => {

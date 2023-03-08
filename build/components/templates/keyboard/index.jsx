@@ -2,7 +2,12 @@ import React, { useEffect, useState } from 'react';
 import Key from './key';
 import Hand from './hand';
 
-function Keyboard({ activeKey: aKey, wrongKey: wKey, className, showHand }) {
+function Keyboard({
+  activeKey: aKey,
+  wrongKey: wKey = null,
+  className,
+  showHand,
+}) {
   const [activeKey, setactiveKey] = useState(null);
 
   const [wrongKey, setwrongKey] = useState(null);

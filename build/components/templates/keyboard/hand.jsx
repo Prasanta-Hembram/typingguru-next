@@ -1,23 +1,9 @@
+import useColor from '@commons/helpers/use-color';
 import classNames from 'classnames';
-import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
-import tailwind from '../../../tailwind.config';
 
 const LargePaths = () => {
-  const { theme, setTheme } = useTheme();
-  const [color, setColor] = useState(
-    theme === 'dark'
-      ? tailwind.theme.extend.colors.dark.primary[900]
-      : tailwind.theme.extend.colors.primary[900]
-  );
-
-  useEffect(() => {
-    setColor(
-      theme === 'dark'
-        ? tailwind.theme.extend.colors.dark.primary[900]
-        : tailwind.theme.extend.colors.primary[900]
-    );
-  }, [theme]);
+  const { color } = useColor();
 
   return (
     <g transform="matrix(.87464 0 0 -.85185 33.879 592.871)">
@@ -167,7 +153,7 @@ const Hand = ({ activeKey, wrongKey, leftHand = false, rightHand = false }) => {
     }
   }, []);
 
-  const color = tailwind.theme.extend.colors.primary[900];
+  const { color } = useColor();
 
   return (
     <svg

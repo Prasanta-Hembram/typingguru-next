@@ -43,9 +43,9 @@ const Selector = ({
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           ref={ref}
-          className="bg-white dark:bg-dark-primary-50  max-h-[30vh] flex flex-col min-w-[13rem] cursor-auto rounded-md overflow-hidden shadow-xl relative bottom-20"
+          className="bg-white dark:bg-dark-background  max-h-[30vh] flex flex-col min-w-[13rem] cursor-auto rounded-md overflow-hidden shadow-xl relative bottom-20"
         >
-          <div className="flex bg-primary-900 text-white p-2 font-bold tracking-wider pb-1">
+          <div className="flex bg-primary-900 dark:bg-dark-primary-900 text-white p-2 font-bold tracking-wider pb-1">
             {title}
           </div>
           <div className="flex-1 flex flex-col overflow-y-auto">

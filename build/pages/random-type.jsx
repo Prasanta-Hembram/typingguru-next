@@ -36,7 +36,7 @@ const RandomType = () => {
           spellCheck="false"
           autoComplete="off"
           autoCorrect="off"
-          className={`freeTA tracking-wide font-roboto_mono text-base max-w-screen-sm bg-primary-50 dark:bg-dark-primary-50 shadow-xl rounded-lg p-3 relative bottom-16 xl:bottom-12 w-full  min-h-[10rem] ${configs.language}`}
+          className={`freeTA tracking-wide font-roboto_mono text-base max-w-screen-sm bg-primary-100 dark:bg-[#25282a] shadow-xl rounded-lg p-3 relative bottom-16 xl:bottom-12 w-full  min-h-[10rem] ${configs.language}`}
           onKeyPress={(e) => setactiveKey(e)}
           value={value}
           onChange={(e) => setValue(e.target.value)}

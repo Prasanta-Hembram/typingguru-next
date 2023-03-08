@@ -45,6 +45,33 @@ const Lessons = () => {
     return false;
   };
 
+  const _handleKeyDown = (event) => {
+    if (event && event.key === mainString[index % strLen]) {
+      if (index + 1 >= grandMainStrng.length) {
+        if (configs.lsnIndex >= lessonList.length) {
+          toast.success('You have completed all lessons');
+          return;
+        }
+        setindex(0);
+        setgrandMainStrng(lessonList[configs.lsnIndex + 1]);
+        setConfigs((s) => ({ ...s, lsnIndex: configs.lsnIndex + 1 }));
+        return;
+      }
+      setindex(index + 1);
+    }
+
+    setactiveKey({
+      key: mainString[index % strLen] ? mainString[index % strLen] : null,
+      shiftKey: isShiftOn(mainString[index % strLen]),
+    });
+    setwrongKey(
+      event && event.key === mainString[index % strLen] ? null : event
+    );
+    if (event && !(event.key === mainString[index % strLen])) {
+      setwrongInputCount((s) => s + 1);
+    }
+  };
+
   const handleStrings = () => {
     sethalfFirst(mainString.substring(0, index % strLen));
     sethalfSecond(mainString.substring(index % strLen, mainString.length));
@@ -103,32 +130,6 @@ const Lessons = () => {
     return () => clearInterval(interval);
   }, [grandMainStrng, index, speed, setspeed]);
 
-  const _handleKeyDown = (event) => {
-    if (event && event.key === mainString[index % strLen]) {
-      if (index + 1 >= grandMainStrng.length) {
-        if (configs.lsnIndex >= lessonList.length) {
-          toast.success('You have completed all lessons');
-          return;
-        }
-        setindex(0);
-        setgrandMainStrng(lessonList[configs.lsnIndex + 1]);
-        setConfigs((s) => ({ ...s, lsnIndex: configs.lsnIndex + 1 }));
-        return;
-      }
-      setindex(index + 1);
-    }
-
-    setactiveKey({
-      key: mainString[index % strLen] ? mainString[index % strLen] : null,
-      shiftKey: isShiftOn(mainString[index % strLen]),
-    });
-    setwrongKey(
-      event && event.key === mainString[index % strLen] ? null : event
-    );
-    if (event && !(event.key === mainString[index % strLen])) {
-      setwrongInputCount((s) => s + 1);
-    }
-  };
   useEffect(() => {
     setmainString(
       grandMainStrng.substring(
@@ -190,7 +191,7 @@ const Lessons = () => {
             </span>
           </div>
           <div>
-            <span className="text-primary-500">
+            <span className="text-primary-500 dark:text-dark-primary-800">
               {halfFirst.replace(/ /g, '\u00a0')}
             </span>
             <span title="home">{halfSecond.replace(/ /g, '\u00a0')}</span>

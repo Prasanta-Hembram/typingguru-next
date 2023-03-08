@@ -20,7 +20,7 @@ $large-screen-1280-and-up: "only screen and (min-width : #{$large-screen-1280})"
 }
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  @apply bg-primary dark:bg-primary-900 rounded-lg cursor-pointer;
+  @apply bg-primary dark:bg-dark-background-keyboard rounded-lg cursor-pointer;
 }
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
@@ -358,7 +358,7 @@ html {
 
 .cursor {
   &::after {
-    @apply absolute h-5 bg-primary-900 dark:bg-primary-300 bottom-1 w-[2px] right-[calc(100%-2px)];
+    @apply absolute h-5 bg-primary-900 dark:bg-teal-600 bottom-1 w-[2px] right-[calc(100%-2px)];
     content: "";
   }
 }

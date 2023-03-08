@@ -1,7 +1,14 @@
+import useColor from '@commons/helpers/use-color';
+
 const CBody = ({ children, ...props }) => {
+  const { color, background } = useColor();
   return (
     <div
-      className="flex flex-col min-h-screen min-w-[1080px] bg-gray-50 dark:bg-dark-background text-primary-900 dark:text-dark-primary-900"
+      style={{
+        color,
+        background,
+      }}
+      className="flex flex-col min-h-screen min-w-[1080px]"
       {...props}
     >
       {children}
