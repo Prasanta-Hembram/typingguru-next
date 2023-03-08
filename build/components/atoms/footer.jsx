@@ -4,15 +4,18 @@ import { useEffect, useState } from 'react';
 const Footer = () => {
   const [views, setviews] = useState(0);
 
+  const counterUrl =
+    'https://counter10.p.rapidapi.com/?rapidapi-key=44fcc7f8f7mshacfcb91fc4190bfp189dddjsnaa696e83052d&&';
+
   const increasePageView = () => {
     const v = sessionStorage.getItem('views');
     if (v) {
-      setviews(parseInt(v));
+      setviews(parseInt(v, 10));
       return;
     }
 
     axios({
-      url: 'https://api.anayak.com.np/vcnt/?ID=typingguru_site',
+      url: `${counterUrl}ID=typingguru_site`,
       method: 'get',
     })
       .then((res) => {
@@ -24,7 +27,7 @@ const Footer = () => {
 
   useEffect(() => {
     axios({
-      url: 'https://api.anayak.com.np/vcnt/?ID=typingguru_site_views',
+      url: `${counterUrl}ID=typingguru_site_views`,
       method: 'get',
     })
       .then((res) => {
