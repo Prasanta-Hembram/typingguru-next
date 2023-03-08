@@ -1,6 +1,6 @@
 # TypingGuru
 
-![typinguru-image](./screnshot.png)
+![typinguru-image](./screenshot.png)
 
 This is a typing practice free tool. Developed to help beginners to speed up their typing speed.
 It contains lots of lessons to practice.
