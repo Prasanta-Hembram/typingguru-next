@@ -12,7 +12,9 @@ const MyApp = ({ Component, pageProps }) => {
   const router = useRouter();
 
   const handleRouteChange = (url) => {
+    // @ts-ignore
     if (window && window.gtag) {
+      // @ts-ignore
       window.gtag('config', 'G-QW6470DZ7Z', {
         page_path: url,
       });
@@ -27,6 +29,7 @@ const MyApp = ({ Component, pageProps }) => {
   }, [router.events]);
 
   return (
+    // @ts-ignore
     <ThemeProvider attribute="class">
       <ToastContainer />
       <Head>
@@ -41,6 +44,7 @@ const MyApp = ({ Component, pageProps }) => {
         <link rel="apple-touch-icon" href="/DialogIcon.png" />
         <link rel="manifest" href="/manifest.json" />
       </Head>
+      {/* @ts-ignore */}
       <RecoilRoot>
         {/* <Component {...pageProps} /> */}
         {!Component.SSR && (

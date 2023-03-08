@@ -1,4 +1,7 @@
+import { configsContext } from '@commons/context/recoil-context';
+import { usePersistentRecoilState } from '@components/hooks/use-recoil-presist';
 import axios from 'axios';
+import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 
 const Footer = () => {
@@ -39,6 +42,13 @@ const Footer = () => {
   const isDev = process.env.NODE_ENV === 'development';
 
   useEffect(isDev ? () => {} : increasePageView, []);
+
+  const [configs] = usePersistentRecoilState(configsContext);
+
+  const { setTheme } = useTheme();
+  useEffect(() => {
+    setTheme(configs.Dark ? 'dark' : 'light');
+  }, [configs.Dark]);
 
   return (
     <footer className="flex justify-center w-full fixed bottom-0 font-ropa_sans text-md p-3">

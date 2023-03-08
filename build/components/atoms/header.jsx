@@ -8,9 +8,8 @@ import Link from 'next/link';
 import { MdCheckBoxOutlineBlank, MdOutlineCheckBox } from 'react-icons/md';
 import { FiChevronDown, FiCircle } from 'react-icons/fi';
 import { useRecoilValue } from 'recoil';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import classNames from 'classnames';
-import { useTheme } from 'next-themes';
 import { usePersistentRecoilState } from '@components/hooks/use-recoil-presist';
 import StoryList from '@components/lessons/story-list';
 import { FaCircle } from 'react-icons/fa';
@@ -62,12 +61,7 @@ const Header = ({
   const [languageModal, setLanguageModal] = useState(false);
   const [storiesModal, setStoriesModal] = useState(false);
   const [customStoriesModal, setCustomStoriesModal] = useState(false);
-  const { setTheme } = useTheme();
   const customStories = useRecoilValue(customStoriesContext());
-
-  useEffect(() => {
-    setTheme(configs.Dark ? 'dark' : 'light');
-  }, [configs.Dark]);
 
   return (
     <div className="text-sm">
