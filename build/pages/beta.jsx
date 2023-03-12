@@ -161,7 +161,7 @@ const Race = () => {
         const resp = await axios({
           url: 'https://type.fit/api/quotes',
         });
-        console.log(resp.data);
+        // console.log(resp.data);
         setQuotes(resp.data);
         setStrArr(
           resp.data[getRandomInt(0, resp.data.length)]?.text?.split(' ') || ''
