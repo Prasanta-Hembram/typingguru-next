@@ -6,6 +6,7 @@ import {
   FaBook,
   FaRecycle,
   FaGithub,
+  FaSuperpowers,
 } from 'react-icons/fa';
 import Link from 'next/link';
 import Footer from '@components/atoms/footer';
@@ -28,7 +29,7 @@ const Home = () => {
       <div className="flex-1 flex justify-center pb-32">
         <div className="max-w-screen-xl w-full">
           <div className="flex justify-center items-center w-full h-full">
-            <div className="grid gap-12 grid-cols-3">
+            <div className="grid gap-12 grid-cols-4">
               {[
                 {
                   link: '/lessons',
@@ -40,6 +41,11 @@ const Home = () => {
                   link: '/custom-stories',
                   label: 'Custom Stories',
                   icon: <FaBook />,
+                },
+                {
+                  link: '/beta',
+                  label: 'Beta',
+                  icon: <FaSuperpowers />,
                 },
                 {
                   link: '/random-type',

@@ -148,6 +148,7 @@ const Header = ({
                 { link: '/stories', label: 'Stories' },
                 { link: '/custom-stories', label: 'Custom Stories' },
                 { link: '/random-type', label: 'Random Type' },
+                { link: '/beta', label: 'Beta' },
                 { link: '/issues', label: 'Issues' },
               ].map(({ link, label }) => (
                 <Link key={link} href={link}>

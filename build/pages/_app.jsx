@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import { firebaseInit } from '@commons/firebase';
 
 const MyApp = ({ Component, pageProps }) => {
   const router = useRouter();

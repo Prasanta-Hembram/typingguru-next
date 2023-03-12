@@ -1,0 +1,71 @@
+import { useStarx } from '@commons/libs/starx/use-starx';
+import { configs } from '@commons/configs/config';
+import { userContext } from '@components/elements/auth-components';
+import { useContext, useEffect, useState } from 'react';
+
+const Race = () => {
+  const { user } = useContext(userContext);
+  const [members, setMembers] = useState({});
+  const [messages, setMessage] = useState({});
+  const onNewUser = (data) => {
+    console.log('New user', data);
+  };
+
+  const onMembers = (data) => {
+    setMembers(data?.members);
+  };
+
+  const join = (x) => {
+    x.on('onMessage', (d) => {
+      if (d?.id) {
+        setMessage((s) => ({ ...s, [d.id]: d.content }));
+      }
+    });
+  };
+
+  // const starx = useStarx({
+  //   host: configs.host,
+  //   port: configs.port,
+  //   path: configs.path,
+  //   onInit: (x) => {
+  //     console.log('initialized');
+  //     x.on('onNewUser', onNewUser);
+  //     x.on('onMembers', onMembers);
+  //     x.request(
+  //       'room.join',
+  //       {
+  //         email: user.email,
+  //         name: user.displayName || 'Guest User',
+  //         isAnonymous: user.isAnonymous,
+  //         uid: user.uid,
+  //       },
+  //       (_) => {
+  //         join(x);
+  //       }
+  //     );
+  //   },
+  // });
+
+  const [content, setContent] = useState('');
+
+  // const sendMessage = () => {
+  //   if (starx) {
+  //     try {
+  //       starx.notify('room.message', {
+  //         content,
+  //         email: user.email,
+  //       });
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   }
+  // };
+  //
+  // useEffect(() => {
+  //   sendMessage();
+  // }, [content]);
+
+  return <div>race</div>;
+};
+
+export default Race;
