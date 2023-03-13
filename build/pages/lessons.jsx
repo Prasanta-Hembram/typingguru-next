@@ -195,6 +195,7 @@ const Lessons = () => {
             </span>
             <span title="home">{halfSecond.replace(/ /g, '\u00a0')}</span>
             <input
+              inputMode="none"
               maxLength={1}
               id="inp"
               ref={myref}

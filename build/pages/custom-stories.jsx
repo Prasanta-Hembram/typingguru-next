@@ -238,6 +238,7 @@ const CustomStories = () => {
             </span>
 
             <input
+              inputMode="none"
               className="opacity-0 absolute height-full w-full mx-auto my-0 left-0"
               type="text"
               maxLength={0}

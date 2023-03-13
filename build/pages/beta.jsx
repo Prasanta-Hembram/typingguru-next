@@ -197,6 +197,7 @@ const Race = () => {
               data-enable-grammarly="false"
               list="autocompleteOff"
               className="absolute bottom-0 left-0 right-0 -z-10 opacity-0"
+              inputMode="none"
               value={inputText}
               onKeyDown={handleInput}
               onChange={() => {}}

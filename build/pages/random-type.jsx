@@ -29,6 +29,7 @@ const RandomType = () => {
         })}
       >
         <motion.textarea
+          inputMode="none"
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 0.25 }}
