@@ -7,6 +7,8 @@ import Link from 'next/link';
 import { FiArrowLeft } from 'react-icons/fi';
 import BounceIt from '@components/atoms/bounce-it';
 import Container from '@components/atoms/container';
+import { usePersistentRecoilState } from '@components/hooks/use-recoil-presist';
+import { configsContext } from '@commons/context/recoil-context';
 
 function getRandomInt(min, max) {
   // eslint-disable-next-line no-param-reassign
@@ -18,6 +20,13 @@ function getRandomInt(min, max) {
 
 const Beta = () => {
   // Handle focus of the keyboard
+  const [_, setConfigs] = usePersistentRecoilState(configsContext);
+  useEffect(() => {
+    setConfigs((s) => ({
+      ...s,
+      Dark: true,
+    }));
+  }, []);
 
   return (
     <CBody>
@@ -44,7 +53,7 @@ const Cursor = ({ left = false, done = false }) => {
     <motion.div
       layoutId="cursor"
       transition={{ duration: 0.11, ease: 'linear' }}
-      className={classNames('bg-yellow-700 w-0.5 flex absolute h-full top-0', {
+      className={classNames('bg-yellow-500 w-0.5 flex absolute h-full top-0', {
         'right-0': !left,
         'left-0': left,
         hidden: done,
