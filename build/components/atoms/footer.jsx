@@ -8,10 +8,8 @@ import { useEffect, useState } from 'react';
 const Footer = () => {
   const [views, setviews] = useState(0);
   const { color, background } = useColor();
-  const [bg, setBg] = useState('');
   const [txt, setTxt] = useState('');
   useEffect(() => {
-    setBg(background);
     setTxt(color);
   }, [background, color]);
 
@@ -62,7 +60,6 @@ const Footer = () => {
     <footer
       style={{
         color: txt,
-        background: bg,
       }}
       className="flex justify-center w-full fixed bottom-0 font-ropa_sans text-md p-3"
     >
