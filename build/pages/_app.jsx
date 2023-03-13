@@ -8,6 +8,8 @@ import Head from 'next/head';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import { firebaseInit } from '@commons/firebase';
+import Footer from '@components/atoms/footer';
+import CBody from '@components/atoms/cbody';
 
 const MyApp = ({ Component, pageProps }) => {
   const router = useRouter();
@@ -45,15 +47,29 @@ const MyApp = ({ Component, pageProps }) => {
         <link rel="apple-touch-icon" href="/DialogIcon.png" />
         <link rel="manifest" href="/manifest.json" />
       </Head>
+
       {/* @ts-ignore */}
       <RecoilRoot>
-        {/* <Component {...pageProps} /> */}
-        {!Component.SSR && (
-          <SafeHydrate>
-            <Component {...pageProps} />
-          </SafeHydrate>
-        )}
-        {Component.SSR && <Component {...pageProps} />}
+        <div className="hidden md:block">
+          {/* <Component {...pageProps} /> */}
+          {!Component.SSR && (
+            <SafeHydrate>
+              <Component {...pageProps} />
+            </SafeHydrate>
+          )}
+          {Component.SSR && <Component {...pageProps} />}
+        </div>
+        <div className="md:hidden">
+          <CBody className="flex justify-center items-center min-h-screen">
+            <div className="max-w-xs tracking-wide text-lg leading-relaxed">
+              Please open in your desktop device or rotate your phone.
+              <br />
+              <br />
+              Use external keyboard if you want to practice in your phone.
+            </div>
+          </CBody>
+        </div>
+        <Footer />
       </RecoilRoot>
     </ThemeProvider>
   );

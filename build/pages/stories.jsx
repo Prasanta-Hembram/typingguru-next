@@ -1,5 +1,4 @@
 import Header from '@components/atoms/header';
-import Footer from '@components/atoms/footer';
 import { motion } from 'framer-motion';
 import { createRef, useEffect, useState } from 'react';
 import Keyboard from '@components/templates/keyboard';
@@ -242,7 +241,6 @@ const Stories = () => {
           </div>
         )}
       </div>
-      <Footer />
     </CBody>
   );
 };

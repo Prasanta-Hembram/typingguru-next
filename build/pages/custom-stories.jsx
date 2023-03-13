@@ -261,7 +261,6 @@ const CustomStories = () => {
           </div>
         )}
       </div>
-      <Footer />
     </CBody>
   );
 };

@@ -1,5 +1,4 @@
 import Header from '@components/atoms/header';
-import Footer from '@components/atoms/footer';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import Keyboard from '@components/templates/keyboard';
@@ -53,7 +52,6 @@ const RandomType = () => {
           </div>
         )}
       </div>
-      <Footer />
     </CBody>
   );
 };

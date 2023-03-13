@@ -112,7 +112,6 @@ const Issues = () => {
           </div>
         </form>
       </div>
-      <Footer />
     </CBody>
   );
 };

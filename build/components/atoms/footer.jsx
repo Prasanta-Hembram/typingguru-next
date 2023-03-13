@@ -1,4 +1,5 @@
 import { configsContext } from '@commons/context/recoil-context';
+import useColor from '@commons/helpers/use-color';
 import { usePersistentRecoilState } from '@components/hooks/use-recoil-presist';
 import axios from 'axios';
 import { useTheme } from 'next-themes';
@@ -6,6 +7,13 @@ import { useEffect, useState } from 'react';
 
 const Footer = () => {
   const [views, setviews] = useState(0);
+  const { color, background } = useColor();
+  const [bg, setBg] = useState('');
+  const [txt, setTxt] = useState('');
+  useEffect(() => {
+    setBg(background);
+    setTxt(color);
+  }, [background, color]);
 
   const counterUrl =
     'https://counter10.p.rapidapi.com/?rapidapi-key=44fcc7f8f7mshacfcb91fc4190bfp189dddjsnaa696e83052d&&';
@@ -51,7 +59,13 @@ const Footer = () => {
   }, [configs.Dark]);
 
   return (
-    <footer className="flex justify-center w-full fixed bottom-0 font-ropa_sans text-md p-3">
+    <footer
+      style={{
+        color: txt,
+        background: bg,
+      }}
+      className="flex justify-center w-full fixed bottom-0 font-ropa_sans text-md p-3"
+    >
       <div className="max-w-screen-xl w-full flex justify-between">
         <div className="flex gap-1">
           &copy; {new Date().getFullYear()}{' '}

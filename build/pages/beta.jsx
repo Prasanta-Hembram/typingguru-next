@@ -1,4 +1,3 @@
-import Footer from '@components/atoms/footer';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import { useEffect, useMemo, useState } from 'react';
@@ -35,7 +34,6 @@ const Beta = () => {
         </div>
 
         <Race />
-        <Footer />
       </div>
     </CBody>
   );
@@ -131,11 +129,13 @@ const Race = () => {
     const char = e.nativeEvent.key;
     // console.log(char);
     if (char === ' ') {
-      setLastWrong(strArr[usrArr.length] !== inputText);
-      setInputText((s) => {
-        setUserArr((s2) => [...s2, s]);
-        return '';
-      });
+      if (inputText?.length > 0) {
+        setLastWrong(strArr[usrArr.length] !== inputText);
+        setInputText((s) => {
+          setUserArr((s2) => [...s2, s]);
+          return '';
+        });
+      }
     } else if (char.length === 1) {
       setInputText((s) => s + char);
     } else if (char === 'Backspace') {

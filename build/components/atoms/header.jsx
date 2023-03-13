@@ -64,7 +64,7 @@ const Header = ({
   const customStories = useRecoilValue(customStoriesContext());
 
   return (
-    <div className="text-sm">
+    <div className="text-sm z-20">
       <Selector
         visible={lessonModal}
         setVisible={setLessonModal}
@@ -112,7 +112,6 @@ const Header = ({
         }, undefined)}
         title="Language"
       />
-
       <Selector
         visible={storiesModal}
         setVisible={setStoriesModal}
@@ -130,12 +129,10 @@ const Header = ({
         selected={configs.storyIndex}
         title="Story"
       />
-
       <CustomStoriesDialog
         visible={customStoriesModal}
         setVisible={setCustomStoriesModal}
       />
-
       <div className="flex justify-center z-10">
         <div className="flex gap-6 w-full max-w-screen-xl p-3 py-6">
           <span className="flex flex-col fixed text-sm font-redressed tracking-wider gap-1 left-6 top-32">
