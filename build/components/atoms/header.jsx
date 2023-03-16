@@ -13,6 +13,7 @@ import classNames from 'classnames';
 import { usePersistentRecoilState } from '@components/hooks/use-recoil-presist';
 import StoryList from '@components/lessons/story-list';
 import { FaCircle } from 'react-icons/fa';
+import useThemeHelper from '@components/hooks/use-theme-helper';
 import Card from './card';
 import Selector from './selector';
 import CustomStoriesDialog from './custom-stories-dialog';
@@ -28,11 +29,15 @@ const languageList = [
 ];
 
 const SCard = ({ children, className = '', ...etc }) => {
+  const themeStatus = useThemeHelper();
   return (
     <motion.div
       className={classNames(
-        'cursor-pointer border border-primary-300 select-none px-6 py-2 rounded-lg shadow-lg hover:border-primary-500 dark:border-dark-primary-900 flex items-center gap-2 whitespace-pre justify-between text-xs',
-        className
+        'cursor-pointer border border-primary-300 select-none px-6 py-2 rounded-lg shadow-lg hover:border-primary-500 flex items-center gap-2 whitespace-pre justify-between text-xs',
+        className,
+        {
+          'border-dark-primary-900': themeStatus.dark,
+        }
       )}
       {...etc}
     >
@@ -150,13 +155,10 @@ const Header = ({
               ].map(({ link, label }) => (
                 <Link key={link} href={link}>
                   <a
-                    className={classNames(
-                      'hover:text-primary-500 dark:hover:text-dark-primary-700 flex gap-2',
-                      {
-                        'text-primary-600 dark:text-dark-primary-800':
-                          page.toLowerCase() === label.toLowerCase(),
-                      }
-                    )}
+                    className={classNames('hover:text-primary-500 flex gap-2', {
+                      'text-primary-600':
+                        page.toLowerCase() === label.toLowerCase(),
+                    })}
                   >
                     <span>-&gt;</span>
                     {label}
@@ -185,9 +187,9 @@ const Header = ({
                     }
                     key={label}
                     className={classNames(
-                      'hover:text-primary-500 dark:hover:text-dark-primary-700 flex gap-2  items-center cursor-pointer',
+                      'hover:text-primary-500 flex gap-2  items-center cursor-pointer',
                       {
-                        'text-primary-600 dark:text-dark-primary-800':
+                        'text-primary-600':
                           configs.lsnIndex >= _index &&
                           configs.lsnIndex <= indexTo,
                       }
@@ -218,7 +220,7 @@ const Header = ({
                 <a>
                   <h1 className="text-xl font-resique cursor-pointer select-none inline-flex relative">
                     <span className="whitespace-pre">Typing Guru</span>
-                    <span className="font-lato text-xs font-bold text-primary-500 dark:text-dark-primary-900 tracking-wider absolute top-[calc(100%-5px)] right-0 capitalize">
+                    <span className="font-lato text-xs font-bold text-primary-500 tracking-wider absolute top-[calc(100%-5px)] right-0 capitalize">
                       {` ${page}`}
                     </span>
                   </h1>
@@ -337,7 +339,7 @@ const Header = ({
                 </div>
 
                 <div className="flex flex-col gap-1 py-1">
-                  {['Keyboard', 'Hands', 'Dark'].map((item) => {
+                  {['Keyboard', 'Hands'].map((item) => {
                     const iconClass = 'text-xl relative';
                     if (item === 'Hands' && !configs.Keyboard) {
                       return null;
@@ -363,6 +365,22 @@ const Header = ({
                       </motion.div>
                     );
                   })}
+
+                  <select
+                    className="bg-transparent border rounded-md px-1 pb-0.5 my-0.5"
+                    onChange={(e) => {
+                      setConfigs((c) => ({
+                        ...c,
+                        colorScheme: e.target.value,
+                      }));
+                    }}
+                    value={configs.colorScheme}
+                  >
+                    <option value="dark-teal">dark-teal</option>
+                    <option value="light-purple">light-purple</option>
+                    <option value="light-red">light-red</option>
+                    <option value="light-plain">light-plain</option>
+                  </select>
                 </div>
                 {!isRandomType && (
                   <div className="flex flex-col py-1 gap-1">

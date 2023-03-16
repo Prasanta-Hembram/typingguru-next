@@ -1,10 +1,9 @@
-import useColor from '@commons/helpers/use-color';
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 
-const LargePaths = () => {
-  const { color } = useColor();
+const color = 'var(--color-primary-500)';
 
+const LargePaths = () => {
   return (
     <g transform="matrix(.87464 0 0 -.85185 33.879 592.871)">
       <path
@@ -152,8 +151,6 @@ const Hand = ({ activeKey, wrongKey, leftHand = false, rightHand = false }) => {
       setKeyList(keyListRightHand);
     }
   }, []);
-
-  const { color } = useColor();
 
   return (
     <svg

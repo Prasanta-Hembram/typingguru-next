@@ -1,17 +1,12 @@
 import { configsContext } from '@commons/context/recoil-context';
-import useColor from '@commons/helpers/use-color';
 import { usePersistentRecoilState } from '@components/hooks/use-recoil-presist';
 import axios from 'axios';
 import { useTheme } from 'next-themes';
+import { doc } from 'prettier';
 import { useEffect, useState } from 'react';
 
 const Footer = () => {
   const [views, setviews] = useState(0);
-  const { color, background } = useColor();
-  const [txt, setTxt] = useState('');
-  useEffect(() => {
-    setTxt(color);
-  }, [background, color]);
 
   const counterUrl =
     'https://counter10.p.rapidapi.com/?rapidapi-key=44fcc7f8f7mshacfcb91fc4190bfp189dddjsnaa696e83052d&&';
@@ -51,18 +46,22 @@ const Footer = () => {
 
   const [configs] = usePersistentRecoilState(configsContext);
 
-  const { setTheme } = useTheme();
+  const setTheme = (thm) => {
+    if (document?.getElementsByTagName('html')[0]?.className) {
+      document.getElementsByTagName('html')[0].className = thm;
+    }
+  };
+
   useEffect(() => {
-    setTheme(configs.Dark ? 'dark' : 'light');
-  }, [configs.Dark]);
+    if (!configs.colorScheme) {
+      setTheme('light-plain');
+    } else {
+      setTheme(configs.colorScheme);
+    }
+  }, [configs.colorScheme]);
 
   return (
-    <footer
-      style={{
-        color: txt,
-      }}
-      className="flex justify-center w-full fixed bottom-0 font-ropa_sans text-md p-3"
-    >
+    <footer className="flex justify-center w-full fixed bottom-0 font-ropa_sans text-md p-3 text-primary">
       <div className="max-w-screen-xl w-full flex justify-between">
         <div className="flex gap-1">
           &copy; {new Date().getFullYear()}{' '}

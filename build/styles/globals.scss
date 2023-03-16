@@ -6,6 +6,80 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base{
+  .light-plain{
+
+          --color-primary-50: #999;
+          --color-primary-100: #888;
+          --color-primary-200: #777;
+          --color-primary-300: #666;
+          --color-primary-400: #555;
+          --color-primary-500: #444;
+          --color-primary-600: #333333;
+          --color-primary-700: #222222;
+          --color-primary-800: #111111;
+          --color-primary-900: #000000;
+
+          --color-background: #ffffff;
+          --color-keyboard: #eeeeee;
+          --color-key: #ffffff;
+          --color-keyactive: #111111;
+  }
+  .light-purple{
+          --color-primary-50: #ffffff;
+          --color-primary-100: #F9F7FF;
+          --color-primary-200: #DED0FC;
+          --color-primary-300: #C2A9FA;
+          --color-primary-400: #A783F8;
+          --color-primary-500: #8B5CF6;
+          --color-primary-600: #6527F3;
+          --color-primary-700: #4A0CD6;
+          --color-primary-800: #3709A1;
+          --color-primary-900: #25066C;
+          --color-background: #ffffff;
+          --color-keyboard: #eeeeee;
+          --color-key: #ffffff;
+          --color-keyactive: #8B5CF6;
+    }
+
+  .light-red{
+          --color-primary-50:  #FDEEF6;
+          --color-primary-100: #FBDCEB;
+          --color-primary-200: #F8B7D7;
+          --color-primary-300: #F492C2;
+          --color-primary-400: #F06DAE;
+          --color-primary-500: #EC4899;
+          --color-primary-600: #E4187D;
+          --color-primary-700: #B11261;
+          --color-primary-800: #7F0D45;
+          --color-primary-900: #4C0829;
+          --color-background: #ffffff;
+          --color-keyboard: #eeeeee;
+          --color-key: #ffffff;
+          --color-keyactive: #8B5CF6;
+    }
+
+  .dark-teal{
+        --color-primary-50: #0D1916;
+        --color-primary-100: #203E37;
+        --color-primary-200: #336258;
+        --color-primary-300: #478778;
+        --color-primary-400: #5CAA98;
+        --color-primary-500: #77B8A9;
+        --color-primary-600: #92C6BA;
+        --color-primary-700: #ACD4CB;
+        --color-primary-800: #C7E2DC;
+        --color-primary-900: #D5E9E4;
+
+        --color-background: #2C3333;
+        --color-keyboard: #222222;
+        --color-key: #111111;
+        --color-keyactive: #478878;
+    }
+}
+
+
+
 $small-screen: 600px !default;
 $large-screen-1280: 1280px !default;
 $large-screen-1280-and-up: "only screen and (min-width : #{$large-screen-1280})" !default;
@@ -15,20 +89,20 @@ $large-screen-1280-and-up: "only screen and (min-width : #{$large-screen-1280})"
 }
 /* Track */
 ::-webkit-scrollbar-track {
-  @apply bg-gray-200 dark:bg-gray-800;
+  @apply bg-gray-200 bg-scroll-track;
   box-shadow: inset 0px 0px 6px rgba(0, 0, 0, 0.29);
 }
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  @apply bg-primary dark:bg-dark-background-keyboard rounded-lg cursor-pointer;
+  @apply bg-primary bg-scroll-thumb rounded-lg cursor-pointer;
 }
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-primary dark:bg-primary-900;
+  @apply bg-primary-900;
 }
 
 html {
-  @apply dark:bg-gray-800;
+  @apply bg-background;
 }
 
 /* Keyboard */
@@ -52,10 +126,10 @@ html {
   }
   &.day,
   &.night {
-    @apply bg-gray-200 dark:bg-[#25282a];
+    @apply bg-keyboard-background;
 
     .key {
-      @apply bg-white dark:bg-[#1b1d1e];
+      @apply bg-keyboard-key text-keyboard-keycolor;
       /* background-color: white; */
       &.active {
         @keyframes active-blink {
@@ -73,7 +147,7 @@ html {
           }
         }
         // animation: active-blink 1s infinite;
-        @apply bg-primary-300  dark:bg-dark-background-keyboard;
+        @apply bg-keyboard-active text-keyboard-key;
       }
       &.wrong-active {
         @keyframes wrong-active-blink {
@@ -355,7 +429,7 @@ html {
 
 .cursor {
   &::after {
-    @apply absolute h-5 bg-primary-900 dark:bg-teal-600 bottom-1 w-[2px] right-[calc(100%-2px)];
+    @apply absolute h-5 bg-cursor bottom-1 w-[2px] right-[calc(100%-2px)];
     content: "";
   }
 }

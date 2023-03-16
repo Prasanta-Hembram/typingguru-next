@@ -24,7 +24,7 @@ const Beta = () => {
   useEffect(() => {
     setConfigs((s) => ({
       ...s,
-      Dark: true,
+      colorScheme: 'dark-teal',
     }));
   }, []);
 

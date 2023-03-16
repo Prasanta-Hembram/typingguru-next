@@ -9,7 +9,6 @@ import {
   FaSuperpowers,
 } from 'react-icons/fa';
 import Link from 'next/link';
-import Footer from '@components/atoms/footer';
 import CBody from '@components/atoms/cbody';
 
 const Home = () => {

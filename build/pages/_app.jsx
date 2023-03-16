@@ -60,7 +60,7 @@ const MyApp = ({ Component, pageProps }) => {
           {Component.SSR && <Component {...pageProps} />}
         </div>
         <div className="md:hidden">
-          <CBody className="flex justify-center items-center min-h-screen">
+          <CBody className="flex justify-center items-center min-h-screen text-primary bg-background">
             <div className="max-w-xs tracking-wide text-lg leading-relaxed">
               Please open in your desktop device or rotate your phone.
               <br />

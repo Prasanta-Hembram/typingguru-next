@@ -191,11 +191,11 @@ const Stories = () => {
             animate={{ scaleX: 1 }}
             transition={{ duration: 0.25 }}
             className={classNames(
-              'story-typing tracking-wide text-xl max-w-screen-md bg-primary-50 dark:bg-[#25282a] shadow-xl rounded-lg p-3 relative bottom-16 xl:bottom-12',
+              'story-typing tracking-wide text-xl max-w-screen-md bg-keyboard-background shadow-xl rounded-lg p-3 relative bottom-16 xl:bottom-12',
               configs.language
             )}
           >
-            <span className="text-primary-600 dark:text-dark-primary-800">
+            <span className="text-primary-600">
               {dispStrings.str1.split('').map((item, indx) => {
                 return (
                   // eslint-disable-next-line react/jsx-key
@@ -209,10 +209,10 @@ const Stories = () => {
                 );
               })}
             </span>
-            <span className="relative cursor text-primary-400 dark:text-dark-primary-600">
+            <span className="relative cursor text-primary-400">
               {dispStrings.str2}
             </span>
-            <span className="text-primary-400 dark:text-dark-primary-600">
+            <span className="text-primary-400">
               {dispStrings.str3.split('').map((item) => {
                 return item === ' ' ? <span>&nbsp;</span> : item;
               })}

@@ -57,8 +57,7 @@ const Selector = ({
                 className={classNames(
                   'flex justify-between items-center hover:bg-gray-200  relative py-2 pb-1.5 px-3 text-xs text-center  cursor-pointer dark:hover:bg-gray-700 dark:hover:text-white',
                   {
-                    'bg-primary-200 dark:bg-gray-700 dark:text-white':
-                      selected === index,
+                    'bg-primary-200': selected === index,
                   }
                 )}
                 onClick={() => {

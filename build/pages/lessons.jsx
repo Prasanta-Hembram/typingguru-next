@@ -190,7 +190,7 @@ const Lessons = () => {
             </span>
           </div>
           <div>
-            <span className="text-primary-500 dark:text-dark-primary-800">
+            <span className="text-primary-500">
               {halfFirst.replace(/ /g, '\u00a0')}
             </span>
             <span title="home">{halfSecond.replace(/ /g, '\u00a0')}</span>
