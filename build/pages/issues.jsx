@@ -6,6 +6,7 @@ import useForm from '@components/hooks/use-form';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { useState } from 'react';
 
 const Input = ({ label, placeholder, ...etc }) => {
   return (
@@ -21,6 +22,8 @@ const Input = ({ label, placeholder, ...etc }) => {
 };
 
 const Issues = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const [values, errors, handleChange, handleSubmit, setValues] = useForm({
     initialValues: {
       name: '',
@@ -33,6 +36,10 @@ const Issues = () => {
       message: Yup.string().required('Message is required'),
     }),
     onSubmit: async (vals) => {
+      if (isLoading) {
+        return;
+      }
+      setIsLoading(true);
       try {
         await axios({
           method: 'post',
@@ -40,15 +47,18 @@ const Issues = () => {
           data: vals,
         });
         toast.success('Issue/Feedback reported successfully');
+
+        setValues({
+          name: '',
+          email: '',
+          message: '',
+        });
       } catch (err) {
         toast.error('Something went wrong, try again later');
         console.log(err);
+      } finally {
+        setIsLoading(false);
       }
-      setValues({
-        name: '',
-        email: '',
-        message: '',
-      });
 
       console.log(vals);
     },
@@ -107,7 +117,7 @@ const Issues = () => {
               whileTap={{ y: 2 }}
               className="bg-primary-500 text-white font-medium py-2 px-4 rounded-md active:bg-primary-600 text-sm"
             >
-              Send
+              {isLoading ? 'Sending' : 'Send'}
             </motion.button>
           </div>
         </form>

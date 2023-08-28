@@ -1,4 +1,3 @@
-import Header from '@components/atoms/header';
 import { motion } from 'framer-motion';
 import { createRef, useEffect, useState } from 'react';
 import Keyboard from '@components/templates/keyboard';
@@ -8,6 +7,7 @@ import classNames from 'classnames';
 import CBody from '@components/atoms/cbody';
 import StoryList from '@components/lessons/story-list';
 import { usePersistentRecoilState } from '@components/hooks/use-recoil-presist';
+import Header from '@components/atoms/header';
 
 const Stories = () => {
   const inpRef = createRef();
@@ -129,7 +129,7 @@ const Stories = () => {
           Number(
             (
               100 -
-                (Object.keys(errorIndex).length / (mainIndex + index)) * 100 ||
+              (Object.keys(errorIndex).length / (mainIndex + index)) * 100 ||
               100
             ).toFixed(0)
           )
@@ -214,7 +214,11 @@ const Stories = () => {
             </span>
             <span className="text-primary-400">
               {dispStrings.str3.split('').map((item) => {
-                return item === ' ' ? <span>&nbsp;</span> : item;
+                return item === ' ' ? (
+                  <span>&nbsp;</span>
+                ) : (
+                  <motion.span className="bg-blue-200">{item}</motion.span>
+                );
               })}
             </span>
 
