@@ -1,5 +1,4 @@
 import Header from '@components/atoms/header';
-import Footer from '@components/atoms/footer';
 import CBody from '@components/atoms/cbody';
 import { motion } from 'framer-motion';
 import useForm from '@components/hooks/use-form';

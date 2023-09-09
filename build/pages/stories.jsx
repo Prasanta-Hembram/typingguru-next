@@ -129,7 +129,7 @@ const Stories = () => {
           Number(
             (
               100 -
-              (Object.keys(errorIndex).length / (mainIndex + index)) * 100 ||
+                (Object.keys(errorIndex).length / (mainIndex + index)) * 100 ||
               100
             ).toFixed(0)
           )
@@ -217,7 +217,7 @@ const Stories = () => {
                 return item === ' ' ? (
                   <span>&nbsp;</span>
                 ) : (
-                  <motion.span className="bg-blue-200">{item}</motion.span>
+                  <motion.span>{item}</motion.span>
                 );
               })}
             </span>
