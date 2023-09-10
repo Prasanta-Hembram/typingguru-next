@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build-export": "next build && next export -o ../out",
+    "build-export": "next build && next export -o ./app/web_assets",
     "start": "next start"
   },
   "dependencies": {

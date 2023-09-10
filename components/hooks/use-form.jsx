@@ -1,6 +1,6 @@
-import { useCallback, useEffect } from "react";
-import { toast } from "react-toastify";
-import { useImmer } from "use-immer";
+import { useCallback, useEffect } from 'react';
+import { toast } from 'react-toastify';
+import { useImmer } from 'use-immer';
 
 function useForm({ initialValues, validationSchema, onSubmit = (_) => {} }) {
   const [values, setValues] = useImmer(initialValues);
@@ -45,7 +45,7 @@ function useForm({ initialValues, validationSchema, onSubmit = (_) => {} }) {
   }, [initialValues, seterrors, errors]);
 
   const handleChange = (keyPath) => {
-    const keyPaths = keyPath.split(".");
+    const keyPaths = keyPath.split('.');
     if (keyPaths.length > 1) {
       return (e) => {
         setValues((d) => {

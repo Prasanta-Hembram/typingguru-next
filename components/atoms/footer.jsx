@@ -1,8 +1,6 @@
 import { configsContext } from '@commons/context/recoil-context';
 import { usePersistentRecoilState } from '@components/hooks/use-recoil-presist';
 import axios from 'axios';
-import { useTheme } from 'next-themes';
-import { doc } from 'prettier';
 import { useEffect, useState } from 'react';
 
 const Footer = () => {
