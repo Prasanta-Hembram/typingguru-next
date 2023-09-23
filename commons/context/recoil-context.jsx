@@ -10,6 +10,7 @@ export const configsContext = () => {
           ? JSON.parse(localStorage.getItem('configsContext'))
           : // : {},
             {
+              colorScheme: 'dark-teal',
               Hand: true,
               Keyboard: true,
               Dark: false,

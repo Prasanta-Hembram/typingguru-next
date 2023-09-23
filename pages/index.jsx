@@ -25,7 +25,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="flex-1 flex justify-center pb-32">
+      <div className="flex-1 flex flex-col items-center gap-24 justify-center pt-12">
         <div className="max-w-screen-xl w-full">
           <div className="flex justify-center items-center w-full h-full">
             <div className="grid gap-12 grid-cols-4">
@@ -75,6 +75,17 @@ const Home = () => {
                 );
               })}
             </div>
+          </div>
+        </div>
+        <div className="pb-24">
+          <div className="flex justify-center">
+            <iframe
+              className="shadow-md rounded-md border"
+              src="https://github.com/sponsors/abdheshnayak/card"
+              title="Sponsor abdheshnayak"
+              height="225"
+              width="600"
+            />
           </div>
         </div>
       </div>

@@ -1,10 +1,11 @@
 import classNames from 'classnames';
 
-const CBody = ({ children, ...props }) => {
+const CBody = ({ children, className = '', ...props }) => {
   return (
     <div
       className={classNames(
-        'flex flex-col min-h-screen min-w-[1080px] text-primary bg-background'
+        'flex flex-col min-h-screen min-w-[1080px] text-primary bg-background',
+        className
       )}
       {...props}
     >
