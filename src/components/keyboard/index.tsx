@@ -693,7 +693,7 @@ function Keyboard({
       className: 'key ctrl',
       keyMatch: ['Control'],
       keyMatchFun: (acKey) => {
-        return acKey?.ctrlKey;
+        return !!acKey?.ctrlKey;
       },
     },
     {
@@ -707,7 +707,7 @@ function Keyboard({
       className: 'key',
       keyMatch: ['Alt'],
       keyMatchFun: (acKey) => {
-        return acKey?.altKey;
+        return !!acKey?.altKey;
       },
     },
     {
@@ -722,7 +722,7 @@ function Keyboard({
       className: 'key',
       keyMatch: ['Alt'],
       keyMatchFun: (acKey) => {
-        return acKey?.altKey;
+        return !!acKey?.altKey;
       },
     },
     {
@@ -742,7 +742,7 @@ function Keyboard({
       className: 'key ctrl',
       keyMatch: ['Control'],
       keyMatchFun: (acKey) => {
-        return acKey?.ctrlKey;
+        return !acKey?.ctrlKey;
       },
     },
   ];
