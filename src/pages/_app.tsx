@@ -4,7 +4,7 @@ import ConfigProvider from '@src/hooks/use-config';
 import Head from 'next/head';
 import { ToastContainer } from 'react-toastify';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Footer from '@src/components/footer';
 import { SafeHydrate } from '@src/utils/ssr-utils';
 
@@ -54,13 +54,7 @@ const MyApp = ({
         <link rel="manifest" href="/manifest.json" />
       </Head>
       <div className="hidden md:block">
-        {/* <Component {...pageProps} /> */}
-        {!Component.SSR && (
-          <SafeHydrate>
-            <Component {...pageProps} />
-          </SafeHydrate>
-        )}
-        {Component.SSR && <Component {...pageProps} />}
+        <Component {...pageProps} />
       </div>
       <div className="md:hidden">
         <CBody className="flex justify-center items-center min-h-screen text-primary bg-background">

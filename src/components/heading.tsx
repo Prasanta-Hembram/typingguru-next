@@ -23,6 +23,21 @@ const languageList = [
   'Urdu',
 ];
 
+const LessonOptionLabel = ({ index }: { index: number }) => {
+  return (
+    <div className="flex items-center justify-between gap-4">
+      <span>Lesson {index + 1}</span>
+      <span className="text-slate-500 font-redressed">
+        {index + 1 <= 12 && 'Middle'}
+
+        {index + 1 > 12 && index + 1 <= 26 && 'Top'}
+        {index + 1 > 26 && index + 1 <= 36 && 'Bottom'}
+        {index + 1 > 36 && 'All'}
+      </span>
+    </div>
+  );
+};
+
 const Header = ({ label: _label }: { label?: string }) => {
   const {
     config,
@@ -53,8 +68,8 @@ const Header = ({ label: _label }: { label?: string }) => {
       <div className="flex justify-center z-10">
         <div className="flex gap-6 w-full max-w-screen-xl p-3 py-6">
           <span className="flex flex-col fixed text-sm font-redressed tracking-wider gap-1 left-6 top-32">
-            <Link href="/">
-              <a className="hover:text-primary-500 relative -left-3">Home</a>
+            <Link href="/" className="hover:text-primary-500 relative -left-3">
+              Home
             </Link>
             <div className="relative origin-bottom-left flex flex-col items-start border-l gap-1 border-primary-900 text-xs z-[999]">
               {[
@@ -65,16 +80,16 @@ const Header = ({ label: _label }: { label?: string }) => {
                 { link: '/beta', label: 'Beta' },
                 { link: '/issues', label: 'Issues' },
               ].map(({ link, label }) => (
-                <Link key={link} href={link}>
-                  <a
-                    className={classNames('hover:text-primary-500 flex gap-2', {
-                      'text-primary-600':
-                        `/${page.toLowerCase()}` === link.toLowerCase(),
-                    })}
-                  >
-                    <span>-&gt;</span>
-                    {label}
-                  </a>
+                <Link
+                  key={link}
+                  href={link}
+                  className={classNames('hover:text-primary-500 flex gap-2', {
+                    'text-primary-600':
+                      `/${page.toLowerCase()}` === link.toLowerCase(),
+                  })}
+                >
+                  <span>-&gt;</span>
+                  {label}
                 </Link>
               ))}
             </div>
@@ -129,14 +144,12 @@ const Header = ({ label: _label }: { label?: string }) => {
           <div className="flex w-full text-sm">
             <div className="flex-1 relative">
               <Link href="/">
-                <a>
-                  <h1 className="text-xl font-resique cursor-pointer select-none inline-flex relative">
-                    <span className="whitespace-pre">Typing Guru</span>
-                    <span className="font-lato text-xs font-bold text-primary-500 tracking-wider absolute top-[calc(100%-5px)] right-0 capitalize">
-                      {` ${page}`}
-                    </span>
-                  </h1>
-                </a>
+                <h1 className="text-xl font-resique cursor-pointer select-none inline-flex relative">
+                  <span className="whitespace-pre">Typing Guru</span>
+                  <span className="font-lato text-xs font-bold text-primary-500 tracking-wider absolute top-[calc(100%-5px)] right-0 capitalize">
+                    {` ${page}`}
+                  </span>
+                </h1>
               </Link>
             </div>
 
@@ -209,33 +222,22 @@ const Header = ({ label: _label }: { label?: string }) => {
                   {page === 'lessons' && (
                     <>
                       <Selector
-                        options={lessonList.map((_, i) => {
+                        options={lessonList.map((_, i: number) => {
                           return {
                             value: i,
-                            label: (
-                              <div
-                                className="flex items-center justify-between"
-                                key={_}
-                              >
-                                <span>Lesson {i + 1}</span>
-                                <span className="text-slate-500 font-redressed">
-                                  {i + 1 <= 12 && 'Middle'}
-
-                                  {i + 1 > 12 && i + 1 <= 26 && 'Top'}
-                                  {i + 1 > 26 && i + 1 <= 36 && 'Bottom'}
-                                  {i + 1 > 36 && 'All'}
-                                </span>
-                              </div>
-                            ),
+                            label: <LessonOptionLabel index={i} />,
                           };
                         })}
                         onSelect={(val) => {
                           setLessonInfo((v) => ({
                             ...v,
-                            index: val,
+                            index: val.value,
                           }));
                         }}
-                        value={lessonInfo.index}
+                        value={{
+                          value: lessonInfo.index,
+                          label: <LessonOptionLabel index={lessonInfo.index} />,
+                        }}
                         label="Lesson"
                       />
 
@@ -249,9 +251,16 @@ const Header = ({ label: _label }: { label?: string }) => {
                           ),
                         }))}
                         onSelect={(val) => {
-                          setLanguage(validateLanguage(val));
+                          setLanguage(validateLanguage(val.value));
                         }}
-                        value={config.language}
+                        value={{
+                          value: config.language,
+                          label: (
+                            <span className="flex items-center">
+                              {config.language}
+                            </span>
+                          ),
+                        }}
                         label="Language"
                       />
                     </>
@@ -269,10 +278,17 @@ const Header = ({ label: _label }: { label?: string }) => {
                       onSelect={(val) => {
                         setStoryInfo((v) => ({
                           ...v,
-                          index: val,
+                          index: val.value,
                         }));
                       }}
-                      value={storyInfo.index}
+                      value={{
+                        value: storyInfo.index,
+                        label: (
+                          <span className="flex">
+                            Story {storyInfo.index + 1}
+                          </span>
+                        ),
+                      }}
                       label="Story"
                     />
                   )}
@@ -307,10 +323,14 @@ const Header = ({ label: _label }: { label?: string }) => {
                   })}
 
                   <Selector
+                    label="Color Scheme"
                     onSelect={(e) => {
-                      setColorScheme(e);
+                      setColorScheme(e.value);
                     }}
-                    value={colorScheme}
+                    value={{
+                      value: colorScheme,
+                      label: colorScheme,
+                    }}
                     options={colorSchemeList.map((item) => ({
                       value: item,
                       label: item,

@@ -73,7 +73,7 @@ const Issues = () => {
       <div className="flex-1 flex items-center justify-center">
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col gap-8 p-8 pt-4 rounded-md shadow-md"
+          className="flex flex-col gap-8 p-8 pt-4 rounded-md shadow-md border"
         >
           <div className="text-xl font-medium font-resique">
             Issues / Feedback

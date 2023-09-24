@@ -2,11 +2,8 @@ import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import { KeyboardEvent, useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
-import Link from 'next/link';
-import { FiArrowLeft } from 'react-icons/fi';
 import CBody from '@src/components/container-body';
-import BounceIt from '@src/components/bounce-it';
-import { childProps } from '@src/interfaces';
+import Header from '@src/components/heading';
 
 function getRandomInt(min: number, max: number) {
   min = Math.ceil(min);
@@ -14,35 +11,11 @@ function getRandomInt(min: number, max: number) {
   return Math.floor(Math.random() * (max - min) + min);
 }
 
-const Container = ({
-  children,
-  className = '',
-}: childProps & {
-  className?: string;
-}) => {
-  return (
-    <div className={classNames('flex w-full justify-center', className)}>
-      <div className="w-full max-w-screen-xl flex justify-between items-center gap-3 mx-4">
-        {children}
-      </div>
-    </div>
-  );
-};
-
 const Beta = () => {
   return (
     <CBody>
-      <div className="flex-1 flex flex-col items-center justify-center relative text-lg">
-        <div className="absolute left-0 top-0 w-full">
-          <Container>
-            <Link href="/">
-              <BounceIt className="p-4 flex gap-2 items-center cursor-pointer">
-                <FiArrowLeft />
-                <span>Home</span>
-              </BounceIt>
-            </Link>
-          </Container>
-        </div>
+      <Header />
+      <div className="flex-1 flex flex-col items-center justify-center relative text-lg pointer-events-none">
         <Race />
       </div>
     </CBody>
@@ -200,44 +173,40 @@ const Race = () => {
   }, [usrArr]);
 
   return (
-    <div>
-      <Container>
-        <div className="flex justify-center items-center h-full">
-          <div className="border border-slate-600 shadow-md p-6 rounded-md flex flex-col gap-6 relative w-full bg-[#2c2e31]">
-            {strArr.length === 0 && <div>Loading....</div>}
-            <input
-              autoComplete="off"
-              autoCapitalize="off"
-              autoCorrect="off"
-              data-gramm="false"
-              data-gramm_editor="false"
-              data-enable-grammarly="false"
-              list="autocompleteOff"
-              className="absolute bottom-0 left-0 right-0 -z-10 opacity-0"
-              inputMode="none"
-              value={inputText}
-              onKeyDown={handleInput}
-              onChange={() => {}}
-              // eslint-disable-next-line jsx-a11y/no-autofocus
-              autoFocus
-              onBlur={(e) => e?.target?.focus()}
-            />
-            <div className="flex gap-2 flex-wrap max-w-[80vw] font-roboto_mono text-[#646669] tracking-wider text-xl">
-              {strArr.map((word, i) => {
-                const k = word + i;
-                return (
-                  <Word
-                    key={k}
-                    word={word}
-                    inputText={usrArr.length === i ? inputText : usrArr[i]}
-                    done={usrArr[i]}
-                  />
-                );
-              })}
-            </div>
-          </div>
+    <div className="flex justify-center items-center h-full">
+      <div className="border border-slate-600 shadow-md p-6 rounded-md flex flex-col gap-6 relative w-full bg-[#2c2e31]">
+        {strArr.length === 0 && <div>Loading....</div>}
+        <input
+          autoComplete="off"
+          autoCapitalize="off"
+          autoCorrect="off"
+          data-gramm="false"
+          data-gramm_editor="false"
+          data-enable-grammarly="false"
+          list="autocompleteOff"
+          className="absolute bottom-0 left-0 right-0 -z-10 opacity-0"
+          inputMode="none"
+          value={inputText}
+          onKeyDown={handleInput}
+          onChange={() => {}}
+          // eslint-disable-next-line jsx-a11y/no-autofocus
+          autoFocus
+          onBlur={(e) => e?.target?.focus()}
+        />
+        <div className="flex gap-2 flex-wrap max-w-[80vw] font-roboto_mono text-[#646669] tracking-wider text-xl">
+          {strArr.map((word, i) => {
+            const k = word + i;
+            return (
+              <Word
+                key={k}
+                word={word}
+                inputText={usrArr.length === i ? inputText : usrArr[i]}
+                done={usrArr[i]}
+              />
+            );
+          })}
         </div>
-      </Container>
+      </div>
     </div>
   );
 };

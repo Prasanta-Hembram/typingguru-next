@@ -161,10 +161,13 @@ const Stories = () => {
       <Header />
 
       <div
-        className={classNames('flex flex-col items-center py-12 gap-6 flex-1', {
-          'justify-center relative pb-24': !visibleCards.keyboard,
-          'justify-end': visibleCards.Keyboard,
-        })}
+        className={classNames(
+          'flex flex-col justify-end items-center py-12 gap-6 flex-1',
+          {
+            'justify-center relative pb-24': !visibleCards.keyboard,
+            'justify-end': visibleCards.Keyboard,
+          }
+        )}
       >
         <div className="flex justify-center">
           <motion.div
