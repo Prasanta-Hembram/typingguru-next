@@ -1,19 +1,25 @@
 {
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.js",
+    "**/*.jsx"
+  ],
   "compilerOptions": {
-    "preserveSymlinks": true,
-    "target": "es5",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "jsx": "react-jsx",
-    "esModuleInterop": true,
-    "checkJs": true,
+    "target": "es6",
+    "module": "CommonJS",
+    "allowSyntheticDefaultImports": true,
     "allowJs": true,
+
+    "jsx": "react-jsx",
+
     "baseUrl": ".",
     "paths": {
-      "@pages/*": ["pages/*"],
-      "@commons/*": ["commons/*"],
-      "@components/*": ["components/*"]
+      "@src/*": ["src/*"]
     }
   },
-  "include": ["pages", "commons", "components"]
+  "exclude": [
+    "node_modules"
+  ]
 }
+

@@ -6,16 +6,16 @@ extends:
   - airbnb/hooks
   - plugin:react/recommended
   - plugin:prettier/recommended
-  # - plugin:@typescript-eslint/recommended
+  - plugin:@typescript-eslint/recommended
 
 plugins:
   - import
   - react 
   - prefer-arrow-functions
   - prettier
-  # - "@typescript-eslint"
+  - "@typescript-eslint"
 
-# parser: "@typescript-eslint/parser"
+parser: "@typescript-eslint/parser"
 
 parserOptions:
   ecmaFeatures:
@@ -38,8 +38,8 @@ settings:
         - node_modules
     jsconfig:
       config: ./jsconfig.json
-    # typescript:
-    #   project: ./tsconfig.json
+    typescript:
+      project: ./tsconfig.json
 
 # settings:
 #   import/resolver:
@@ -54,17 +54,27 @@ rules:
   # pritter rules
 
   # ts rules
-  # react/jsx-filename-extension: 0
-  # react/require-default-props : 0
-  # "@typescript-eslint/no-unused-vars":
-  #   - error
-  #   - ignoreRestSiblings: true
-  #     varsIgnorePattern: '^_'
-  #     argsIgnorePattern: '^_'
-  #
-  # "@typescript-eslint/no-explicit-any": 0
-  # "@typescript-eslint/ban-ts-comment": 0
-  # no-shadow: 0
+  no-continue: 0
+  camelcase: 0
+  guard-for-in: 0
+  no-plusplus: 0
+  no-param-reassign: 0
+  no-restricted-syntax: 0
+  no-use-before-define: 0
+  no-var: 0
+  vars-on-top: 0
+
+  react/jsx-filename-extension: 0
+  react/require-default-props : 0
+  "@typescript-eslint/no-unused-vars":
+    - error
+    - ignoreRestSiblings: true
+      varsIgnorePattern: '^_'
+      argsIgnorePattern: '^_'
+
+  "@typescript-eslint/no-explicit-any": 0
+  "@typescript-eslint/ban-ts-comment": 0
+  no-shadow: 0
 
 
   # js rules
@@ -90,10 +100,6 @@ rules:
   prettier/prettier: 
     - error
     - singleQuote: true
-  camelcase:
-    - error 
-    - ignoreDestructuring: true
-      properties: never
 
   no-underscore-dangle: 0
  
@@ -108,9 +114,6 @@ rules:
   import/order: 1
   react/button-has-type: 0
   no-console: 0
-  no-param-reassign: 
-    - error
-    - props: false
   import/no-unresolved:
     - error
     - ignore:
@@ -123,3 +126,4 @@ rules:
     - ignoreRestSiblings: true
       varsIgnorePattern: '^_'
       argsIgnorePattern: '^_'
+

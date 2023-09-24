@@ -1,6 +1,6 @@
-import { RecoilRoot } from 'recoil';
-import '../styles/globals.scss';
 import { ThemeProvider } from 'next-themes';
+import '../styles/globals.scss';
+import { RecoilRoot } from 'recoil';
 import { SafeHydrate } from '@commons/helpers/ssr-utils';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
