@@ -1,45 +1,47 @@
-import { Dispatch, ReactNode, SetStateAction } from 'react';
+import { ReactNode } from 'react';
 
 interface ISelector<T extends string | number> {
-  hidden?: boolean;
-  setHidden?: Dispatch<SetStateAction<boolean>>;
-  value?: string;
+  value?: T;
   options?: {
     label: ReactNode;
     value: T;
   }[];
   onSelect?: (value: T) => void;
+  label?: ReactNode;
 }
 
 const defFunc = () => {};
 
 const Selector = <T extends string | number>({
-  hidden,
-  setHidden = defFunc,
+  label,
   options,
   value,
   onSelect = defFunc,
 }: ISelector<T>) => {
-  if (hidden) {
-    return null;
-  }
   return (
-    <select
-      value={value}
-      onSelect={(v) => {
-        // @ts-ignore
-        onSelect(v.target.value);
-        setHidden(true);
-      }}
-    >
-      {options?.map((option) => {
-        return (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        );
-      })}
-    </select>
+    <div className="flex flex-col">
+      {label}
+      <select
+        value={value}
+        onChange={(v) => {
+          // @ts-ignore
+          onSelect(v.target.value);
+        }}
+        // onSelect={(v) => {
+        //   // @ts-ignore
+        //   onSelect(v.target.value);
+        //   setHidden(true);
+        // }}
+      >
+        {options?.map((option) => {
+          return (
+            <option key={option.value} value={option.value}>
+              {option.value}
+            </option>
+          );
+        })}
+      </select>
+    </div>
   );
 };
 

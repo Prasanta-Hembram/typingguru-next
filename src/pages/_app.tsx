@@ -1,8 +1,12 @@
 import CBody from '@src/components/container-body';
+import '../styles/globals.scss';
 import ConfigProvider from '@src/hooks/use-config';
-import { SafeHydrate } from 'commons/helpers/ssr-utils';
 import Head from 'next/head';
 import { ToastContainer } from 'react-toastify';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import Footer from '@src/components/footer';
+import { SafeHydrate } from '@src/utils/ssr-utils';
 
 const MyApp = ({
   Component,
@@ -11,8 +15,31 @@ const MyApp = ({
   Component: any;
   pageProps: any;
 }) => {
+  const router = useRouter();
+
+  const handleRouteChange = (url: string) => {
+    // @ts-ignore
+    if (window && window.gtag) {
+      // @ts-ignore
+      window.gtag('config', 'G-QW6470DZ7Z', {
+        page_path: url,
+      });
+    }
+  };
+
+  useEffect(() => {
+    router.events.on('routeChangeComplete', handleRouteChange);
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
+  }, [router.events]);
+
   return (
     <ConfigProvider>
+      <div
+        className="fixed z-[999] w-full h-full left-0 top-0 bg-[#777]"
+        id="loader"
+      />
       <ToastContainer />
       <Head>
         <title>Typing Guru</title>
@@ -45,6 +72,7 @@ const MyApp = ({
           </div>
         </CBody>
       </div>
+      <Footer />
     </ConfigProvider>
   );
 };

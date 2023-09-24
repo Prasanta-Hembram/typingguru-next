@@ -10,6 +10,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@kavre/react-useform": "^1.1.5",
     "airtable": "^0.11.4",
     "axios": "^0.24.0",
     "body-parser": "^1.20.0",
@@ -40,24 +41,18 @@
     "statuses": "^2.0.1",
     "unpipe": "^1.0.0",
     "use-immer": "^0.6.0",
-    "yup": "^0.32.11"
+    "yup": "^1.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.18.0",
     "@babel/eslint-parser": "^7.17.0",
     "@types/node": "^20.6.4",
-    "autoprefixer": "^10.4.7",
-    "concurrently": "^5.3.0",
-    "ee-first": "^1.1.1",
-    "next-transpile-modules": "^9.0.0",
-    "postcss": "^8.4.14",
-    "sass": "^1.52.0",
-    "scss": "^0.2.4",
-    "tailwindcss": "^3.0.24",
-
     "@types/react": "^18.2.22",
     "@typescript-eslint/eslint-plugin": "^6.4.1",
     "@typescript-eslint/parser": "^6.4.1",
+    "autoprefixer": "^10.4.7",
+    "concurrently": "^5.3.0",
+    "ee-first": "^1.1.1",
     "eslint": "^8.47.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-prettier": "^8.3.0",
@@ -70,8 +65,13 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "next-transpile-modules": "^9.0.0",
+    "postcss": "^8.4.14",
     "prettier": "^2.8.8",
     "rimraf": "^5.0.1",
+    "sass": "^1.52.0",
+    "scss": "^0.2.4",
+    "tailwindcss": "^3.0.24",
     "typescript": "^5.2.2"
   }
 }

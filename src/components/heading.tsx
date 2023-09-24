@@ -3,12 +3,13 @@ import storyList from '@src/lessons/story-list';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { MdCheckBoxOutlineBlank, MdOutlineCheckBox } from 'react-icons/md';
-import { FiChevronDown, FiCircle } from 'react-icons/fi';
-import { useState } from 'react';
+import { FiCircle } from 'react-icons/fi';
 import classNames from 'classnames';
 import { FaCircle } from 'react-icons/fa';
-import { childProps } from '@src/interfaces';
-import { useConfig } from '@src/hooks/use-config';
+import { IPage, useConfig } from '@src/hooks/use-config';
+import { validateLanguage } from '@src/languages';
+import { colorSchemeList } from '@src/color-schemes';
+import { useActivePath } from '@src/hooks/use-active-path';
 import Card from './card';
 import Selector from './selector';
 
@@ -22,130 +23,33 @@ const languageList = [
   'Urdu',
 ];
 
-const SCard = ({
-  children,
-  className = '',
-  ...etc
-}: childProps & {
-  className?: string;
-}) => {
-  const { config } = useConfig();
-  return (
-    <motion.div
-      className={classNames(
-        'cursor-pointer border border-primary-300 select-none px-6 py-2 rounded-lg shadow-lg hover:border-primary-500 flex items-center gap-2 whitespace-pre justify-between text-xs',
-        className,
-        {
-          'border-dark-primary-900': config.darkMode,
-        }
-      )}
-      {...etc}
-    >
-      {children}
-    </motion.div>
-  );
-};
+const Header = ({ label: _label }: { label?: string }) => {
+  const {
+    config,
+    setLessonInfo,
+    lessonInfo,
+    setLanguage,
+    setStoryInfo,
+    storyInfo,
+    visibleCards,
+    setVisibleCards,
+    setColorScheme,
+    colorScheme,
+    statics,
+  } = useConfig();
 
-const Header = ({
-  index = 0,
-  lsnIndex = 0,
-  storyIndex = 0,
-  customStoryIndex = 0,
-  speed = { speed: 0 },
-  accuracy = 100,
-  isWithLesson = false,
-  isWithStories = false,
-  isWithCustomStories = false,
-  isRandomType = false,
-  isIssuePage = false,
-  page = '',
-}) => {
-  const { config, setLessonInfo } = useConfig();
-  const { customStories } = config;
+  const { activePath: page } = useActivePath({ parent: '/' }) as {
+    activePath: IPage;
+  };
 
-  const [lessonModal, setLessonModal] = useState(false);
-  const [languageModal, setLanguageModal] = useState(false);
-  const [storiesModal, setStoriesModal] = useState(false);
-  const [customStoriesModal, setCustomStoriesModal] = useState(false);
+  console.log(page);
 
   return (
     <div className="text-sm z-20">
-      <Selector
-        hidden={!!lessonModal}
-        setHidden={setLessonModal}
-        options={lessonList.map((_, i) => {
-          return {
-            value: i.toString(),
-            label: (
-              <div className="flex items-center justify-between" key={_}>
-                <span>Lesson {i + 1}</span>
-                <span className="text-slate-500 font-redressed">
-                  {i + 1 <= 12 && 'Middle'}
-
-                  {i + 1 > 12 && i + 1 <= 26 && 'Top'}
-                  {i + 1 > 26 && i + 1 <= 36 && 'Bottom'}
-                  {i + 1 > 36 && 'All'}
-                </span>
-              </div>
-            ),
-          };
-        })}
-        onSelect={(val) => {
-          setLessonInfo({
-            index: val,
-          });
-          // setConfigs((prev) => ({
-          //   ...prev,
-          //   lsnIndex: val,
-          // }));
-        }}
-        selected={configs.lsnIndex}
-        title="Lesson"
-      />
-      <Selector
-        visible={languageModal}
-        setVisible={setLanguageModal}
-        optionList={languageList.map((l) => (
-          <span key={l} className="flex items-center">
-            {l}
-          </span>
-        ))}
-        onSelect={(val) => {
-          setConfigs((prev) => ({
-            ...prev,
-            language: languageList[val],
-          }));
-        }}
-        selected={languageList.reduce((acc, curr, ind) => {
-          if (acc) return acc;
-          if (curr === configs.language) {
-            return ind;
-          }
-          return acc;
-        }, undefined)}
-        title="Language"
-      />
-      <Selector
-        visible={storiesModal}
-        setVisible={setStoriesModal}
-        optionList={storyList.map((_, i) => (
-          <span className="flex" key={_}>
-            Story {i + 1}
-          </span>
-        ))}
-        onSelect={(val) => {
-          setConfigs((prev) => ({
-            ...prev,
-            storyIndex: val,
-          }));
-        }}
-        selected={configs.storyIndex}
-        title="Story"
-      />
-      <CustomStoriesDialog
-        visible={customStoriesModal}
-        setVisible={setCustomStoriesModal}
-      />
+      {/* <CustomStoriesDialog */}
+      {/*   visible={customStoriesModal} */}
+      {/*   setVisible={setCustomStoriesModal} */}
+      {/* /> */}
       <div className="flex justify-center z-10">
         <div className="flex gap-6 w-full max-w-screen-xl p-3 py-6">
           <span className="flex flex-col fixed text-sm font-redressed tracking-wider gap-1 left-6 top-32">
@@ -156,7 +60,7 @@ const Header = ({
               {[
                 { link: '/lessons', label: 'Lessons' },
                 { link: '/stories', label: 'Stories' },
-                { link: '/custom-stories', label: 'Custom Stories' },
+                // { link: '/custom-stories', label: 'Custom Stories' },
                 { link: '/random-type', label: 'Random Type' },
                 { link: '/beta', label: 'Beta' },
                 { link: '/issues', label: 'Issues' },
@@ -165,7 +69,7 @@ const Header = ({
                   <a
                     className={classNames('hover:text-primary-500 flex gap-2', {
                       'text-primary-600':
-                        page.toLowerCase() === label.toLowerCase(),
+                        `/${page.toLowerCase()}` === link.toLowerCase(),
                     })}
                   >
                     <span>-&gt;</span>
@@ -176,7 +80,7 @@ const Header = ({
             </div>
           </span>
 
-          {isWithLesson && (
+          {page === 'lessons' && (
             <span className="flex flex-col fixed text-sm font-redressed tracking-wider gap-1 right-6 top-32">
               <span className="relative -left-3">Keyboard Row</span>
               <div className="relative origin-bottom-left flex flex-col items-start border-l gap-1 border-primary-900 text-xs">
@@ -188,9 +92,9 @@ const Header = ({
                 ].map(({ label, index: _index, indexTo }) => (
                   <span
                     onClick={() =>
-                      setConfigs((s) => ({
-                        ...s,
-                        lsnIndex: _index,
+                      setLessonInfo((v) => ({
+                        ...v,
+                        index: _index,
                       }))
                     }
                     key={label}
@@ -198,14 +102,14 @@ const Header = ({
                       'hover:text-primary-500 flex gap-2  items-center cursor-pointer',
                       {
                         'text-primary-600':
-                          configs.lsnIndex >= _index &&
-                          configs.lsnIndex <= indexTo,
+                          lessonInfo.index >= _index &&
+                          lessonInfo.index <= indexTo,
                       }
                     )}
                   >
                     <span>-&gt;</span>
-                    {configs.lsnIndex >= _index &&
-                    configs.lsnIndex <= indexTo ? (
+                    {lessonInfo.index >= _index &&
+                    lessonInfo.index <= indexTo ? (
                       <span className="text-xs">
                         <FaCircle />
                       </span>
@@ -236,26 +140,28 @@ const Header = ({
               </Link>
             </div>
 
-            {!isIssuePage && (
+            {page !== 'issues' && (
               <div className="flex gap-6">
-                {!isRandomType && (
+                {page !== 'random-type' && (
                   <>
-                    {configs.Progress && (
+                    {visibleCards.progress && (
                       <Card
-                        varient="sm"
+                        variant="small"
                         className="font-redressed px-8 w-[10rem]"
                       >
                         <div>Progress</div>
 
                         <div className="text-right my-1">
                           <span className="text-xl">
-                            {page === 'stories'
+                            {page === 'story'
                               ? (
-                                  (index / storyList[storyIndex].length) *
+                                  (storyInfo.cursorIndex /
+                                    storyList[storyInfo.index].length) *
                                   100
                                 ).toFixed(0)
                               : (
-                                  (index / lessonList[lsnIndex].length) *
+                                  (lessonInfo.cursorIndex /
+                                    lessonList[lessonInfo.index].length) *
                                   100
                                 ).toFixed(0)}
                           </span>{' '}
@@ -263,15 +169,18 @@ const Header = ({
                         </div>
                       </Card>
                     )}
-                    {configs.Speed && (
+                    {visibleCards.speed && (
                       <Card
-                        varient="sm"
+                        variant="small"
                         className="font-redressed px-8 w-[10rem]"
                       >
                         <div>Speed</div>
                         <div className="text-right my-1">
                           <span className="text-xl">
-                            {(speed && (speed.speed > 300 ? 0 : speed.speed)) ||
+                            {(statics.speed.value &&
+                              (statics.speed.value > 300
+                                ? 0
+                                : statics.speed.value)) ||
                               0}
                           </span>{' '}
                           <span>wpm</span>
@@ -279,15 +188,15 @@ const Header = ({
                       </Card>
                     )}
 
-                    {configs.Accuracy && (
+                    {visibleCards.accuracy && (
                       <Card
-                        varient="sm"
+                        variant="small"
                         className="font-redressed px-8 w-[10rem]"
                       >
                         <div>Accuracy</div>
                         <div className="text-right my-1">
                           <span className="text-xl">
-                            {accuracy > 0 ? accuracy : 0}
+                            {statics.accuracy > 0 ? statics.accuracy : 0}
                           </span>{' '}
                           <span>%</span>
                         </div>
@@ -297,59 +206,82 @@ const Header = ({
                 )}
 
                 <div className="flex flex-col gap-2 font-lato justify-start">
-                  <SCard
-                    whileTap={{ y: 2 }}
-                    onClick={() => {
-                      setLanguageModal((s) => !s);
-                    }}
-                  >
-                    {configs.language}
-                    <FiChevronDown />
-                  </SCard>
+                  {page === 'lessons' && (
+                    <>
+                      <Selector
+                        options={lessonList.map((_, i) => {
+                          return {
+                            value: i,
+                            label: (
+                              <div
+                                className="flex items-center justify-between"
+                                key={_}
+                              >
+                                <span>Lesson {i + 1}</span>
+                                <span className="text-slate-500 font-redressed">
+                                  {i + 1 <= 12 && 'Middle'}
 
-                  {isWithLesson && (
-                    <SCard
-                      whileTap={{ y: 2 }}
-                      onClick={() => {
-                        setLessonModal((s) => !s);
-                      }}
-                    >
-                      {`Lesson ${lsnIndex + 1}`}
-                      <FiChevronDown />
-                    </SCard>
+                                  {i + 1 > 12 && i + 1 <= 26 && 'Top'}
+                                  {i + 1 > 26 && i + 1 <= 36 && 'Bottom'}
+                                  {i + 1 > 36 && 'All'}
+                                </span>
+                              </div>
+                            ),
+                          };
+                        })}
+                        onSelect={(val) => {
+                          setLessonInfo((v) => ({
+                            ...v,
+                            index: val,
+                          }));
+                        }}
+                        value={lessonInfo.index}
+                        label="Lesson"
+                      />
+
+                      <Selector
+                        options={languageList.map((l) => ({
+                          value: l,
+                          label: (
+                            <span key={l} className="flex items-center">
+                              {l}
+                            </span>
+                          ),
+                        }))}
+                        onSelect={(val) => {
+                          setLanguage(validateLanguage(val));
+                        }}
+                        value={config.language}
+                        label="Language"
+                      />
+                    </>
                   )}
-                  {isWithStories && (
-                    <SCard
-                      whileTap={{ y: 2 }}
-                      onClick={() => {
-                        setStoriesModal((s) => !s);
+                  {page === 'story' && (
+                    <Selector
+                      options={storyList.map((_, i) => ({
+                        value: i,
+                        label: (
+                          <span className="flex" key={_}>
+                            Story {i + 1}
+                          </span>
+                        ),
+                      }))}
+                      onSelect={(val) => {
+                        setStoryInfo((v) => ({
+                          ...v,
+                          index: val,
+                        }));
                       }}
-                    >
-                      {`Story ${storyIndex + 1}`}
-                      <FiChevronDown />
-                    </SCard>
-                  )}
-                  {isWithCustomStories && (
-                    <SCard
-                      whileTap={{ y: 2 }}
-                      onClick={() => {
-                        setCustomStoriesModal((s) => !s);
-                      }}
-                    >
-                      <span className="truncate max-w-[8rem]">
-                        {customStories[customStoryIndex]
-                          ? `Story ${customStories[customStoryIndex].name}`
-                          : 'Select Story'}
-                      </span>
-                      <FiChevronDown />
-                    </SCard>
+                      value={storyInfo.index}
+                      label="Story"
+                    />
                   )}
                 </div>
 
                 <div className="flex flex-col gap-1 py-1">
-                  {['Keyboard', 'Hands'].map((item) => {
+                  {['keyboard', 'hands'].map((item) => {
                     const iconClass = 'text-xl relative';
-                    if (item === 'Hands' && !configs.Keyboard) {
+                    if (item === 'Hands' && !visibleCards.keyboard) {
                       return null;
                     }
                     return (
@@ -358,13 +290,13 @@ const Header = ({
                         key={item}
                         className="flex items-center font-lato gap-1 select-none cursor-pointer"
                         onClick={() => {
-                          setConfigs((s) => ({
+                          setVisibleCards((s) => ({
                             ...s,
-                            [item]: !configs[item],
+                            [item]: !visibleCards[item],
                           }));
                         }}
                       >
-                        {configs[item] ? (
+                        {visibleCards[item] ? (
                           <MdOutlineCheckBox className={iconClass} />
                         ) : (
                           <MdCheckBoxOutlineBlank className={iconClass} />
@@ -374,25 +306,20 @@ const Header = ({
                     );
                   })}
 
-                  <select
-                    className="bg-transparent border rounded-md px-1 pb-0.5 my-0.5"
-                    onChange={(e) => {
-                      setConfigs((c) => ({
-                        ...c,
-                        colorScheme: e.target.value,
-                      }));
+                  <Selector
+                    onSelect={(e) => {
+                      setColorScheme(e);
                     }}
-                    value={configs.colorScheme}
-                  >
-                    <option value="dark-teal">dark-teal</option>
-                    <option value="light-purple">light-purple</option>
-                    <option value="light-red">light-red</option>
-                    <option value="light-plain">light-plain</option>
-                  </select>
+                    value={colorScheme}
+                    options={colorSchemeList.map((item) => ({
+                      value: item,
+                      label: item,
+                    }))}
+                  />
                 </div>
-                {!isRandomType && (
+                {page !== 'random-type' && (
                   <div className="flex flex-col py-1 gap-1">
-                    {['Progress', 'Speed', 'Accuracy'].map((item) => {
+                    {['progress', 'speed', 'accuracy'].map((item) => {
                       const iconClass = 'text-xl relative';
                       return (
                         <motion.div
@@ -400,13 +327,13 @@ const Header = ({
                           key={item}
                           className="flex items-center font-lato gap-1 select-none cursor-pointer"
                           onClick={() => {
-                            setConfigs((s) => ({
+                            setVisibleCards((s) => ({
                               ...s,
-                              [item]: !configs[item],
+                              [item]: !visibleCards[item],
                             }));
                           }}
                         >
-                          {configs[item] ? (
+                          {visibleCards[item] ? (
                             <MdOutlineCheckBox className={iconClass} />
                           ) : (
                             <MdCheckBoxOutlineBlank className={iconClass} />

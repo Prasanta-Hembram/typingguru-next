@@ -1,9 +1,13 @@
+import { IColorSchemeClass } from '@src/color-schemes';
 import { childProps } from '@src/interfaces/index';
+import { ILanguage } from '@src/languages';
+import classNames from 'classnames';
 
 import {
   Dispatch,
   SetStateAction,
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -13,16 +17,53 @@ import {
 interface ICustomStory {}
 
 type ISetState<T = any> = (fn: ((val: T) => T) | T) => void;
-type IPage = 'home' | 'about' | 'contact' | 'blog' | 'projects' | '404';
+export type IPage =
+  | ''
+  | 'lessons'
+  | 'story'
+  | 'custom-story'
+  | 'settings'
+  | 'random-type'
+  | 'issues';
 
 interface ILessonInfo {
   index: number;
+  cursorIndex: number;
+}
+interface IStoryInfo {
+  index: number;
+  cursorIndex: number;
+}
+
+interface ISpeedInfo {
+  value: number;
+  start: Date;
+  end: Date | null;
+}
+
+interface IStatics {
+  progress: number;
+  speed: ISpeedInfo;
+  accuracy: number;
+}
+
+interface ICards {
+  progress?: boolean;
+  speed?: boolean;
+  accuracy?: boolean;
+  keyboard?: boolean;
+  hands?: boolean;
+  [key: NonNullable<string>]: boolean | undefined;
 }
 
 interface IConfig {
+  visibleCards: ICards;
+  statics: IStatics;
+  storyInfo: IStoryInfo;
+  language: ILanguage;
   lessonInfo: ILessonInfo;
-  page: IPage;
-  darkMode: boolean;
+  // page: IPage;
+  colorScheme: IColorSchemeClass;
   customStories: ICustomStory[];
 }
 
@@ -31,13 +72,30 @@ interface IConfigContext {
   setConfig: Dispatch<SetStateAction<IConfig>>;
 }
 
-const defaultConfig: IConfig = {
-  lessonInfo: {
-    index: 0,
+const defaultStatics: IStatics = {
+  accuracy: 100,
+  progress: 0,
+  speed: {
+    value: 0,
+    start: new Date(),
+    end: new Date(),
   },
-  page: 'home',
+};
+
+const pageInfo: ILessonInfo | IStoryInfo = {
+  index: 0,
+  cursorIndex: 0,
+};
+
+const defaultConfig: IConfig = {
+  visibleCards: {},
+  statics: defaultStatics,
+  storyInfo: pageInfo,
+  language: 'English',
+  lessonInfo: pageInfo,
+  // page: 'home',
   customStories: [],
-  darkMode: true,
+  colorScheme: 'dark-teal',
 };
 
 const ConfigContext = createContext<IConfigContext>({
@@ -56,13 +114,15 @@ const ConfigProvider = ({ children }: childProps) => {
       }
     }
 
+    console.warn('config not found');
+
     return defaultConfig;
   };
 
   const [config, setConfig] = useState<IConfig>(() => loadConfig());
 
   useEffect(() => {
-    if (typeof window === 'undefined') {
+    if (typeof window !== 'undefined') {
       localStorage.setItem('config', JSON.stringify(config));
     }
   }, [config]);
@@ -74,7 +134,7 @@ const ConfigProvider = ({ children }: childProps) => {
           config,
           setConfig,
         }),
-        [config]
+        [config, setConfig]
       )}
     >
       {children}
@@ -89,8 +149,7 @@ export const useConfig = () => {
   }
 
   const { config, setConfig } = context;
-
-  const { page, lessonInfo } = config;
+  // const { page, lessonInfo, language, storyInfo, visibleCards } = config;
 
   const setPage = (page: IPage) => {
     setConfig((prev) => ({ ...prev, page }));
@@ -107,7 +166,115 @@ export const useConfig = () => {
     setConfig((prev) => ({ ...prev, lessonInfo }));
   };
 
-  return { config, setConfig, setPage, page, setLessonInfo, lessonInfo };
+  const setLanguage = (language: ILanguage) => {
+    setConfig((prev) => ({ ...prev, language }));
+  };
+
+  const setStoryInfo: ISetState<IStoryInfo> = (storyInfo) => {
+    if (typeof storyInfo === 'function') {
+      setConfig((prev) => ({
+        ...prev,
+        storyInfo: storyInfo(prev.storyInfo),
+      }));
+      return;
+    }
+    setConfig((prev) => ({ ...prev, storyInfo }));
+  };
+
+  const setVisibleCards: ISetState<ICards> = (visibleCards) => {
+    if (typeof visibleCards === 'function') {
+      setConfig((prev) => ({
+        ...prev,
+        visibleCards: visibleCards(prev.visibleCards),
+      }));
+      return;
+    }
+
+    setConfig((prev) => ({ ...prev, visibleCards }));
+  };
+
+  const setColorScheme = (colorScheme: IColorSchemeClass) => {
+    setConfig((prev) => ({ ...prev, colorScheme }));
+  };
+
+  const setStatics: ISetState<IStatics> = (statics) => {
+    if (typeof statics === 'function') {
+      setConfig((prev) => ({
+        ...prev,
+        statics: statics(prev.statics),
+      }));
+      return;
+    }
+
+    setConfig((prev) => ({ ...prev, statics }));
+  };
+
+  const setSpeed: ISetState<ISpeedInfo> = (speed) => {
+    if (typeof speed === 'function') {
+      setStatics((prev) => ({
+        ...prev,
+        speed: speed(prev.speed),
+      }));
+      return;
+    }
+
+    setStatics((prev) => ({
+      ...prev,
+      speed,
+    }));
+  };
+
+  const setAccuracy: ISetState<number> = (accuracy) => {
+    if (typeof accuracy === 'function') {
+      setStatics((prev) => ({
+        ...prev,
+        accuracy: accuracy(prev.accuracy),
+      }));
+      return;
+    }
+
+    setStatics((prev) => ({
+      ...prev,
+      accuracy,
+    }));
+  };
+  const speed: ISpeedInfo = useCallback(() => {
+    const s = config.statics.speed;
+    return {
+      value: s.value,
+      start: new Date(s.start),
+      end: s.end ? new Date(s.end) : null,
+    };
+  }, [config.statics.speed])();
+
+  return {
+    ...config,
+    config,
+    setConfig,
+    setPage,
+    setLessonInfo,
+    setLanguage,
+    setStoryInfo,
+    setVisibleCards,
+    setColorScheme,
+    setStatics,
+    setSpeed,
+    speed,
+    accuracy: config.statics.accuracy,
+    setAccuracy,
+  };
+};
+
+export const UseTheme = () => {
+  const { colorScheme } = useConfig();
+
+  useEffect(() => {
+    document.documentElement.className = classNames(colorScheme, {
+      dark: colorScheme.includes('dark'),
+    });
+  }, [colorScheme]);
+  // return <Html className={classNames(colorScheme.className)} />;
+  return null;
 };
 
 export default ConfigProvider;

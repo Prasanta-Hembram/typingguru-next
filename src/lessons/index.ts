@@ -1,4 +1,4 @@
-export default {
+const lessons = {
   TYPS1E11:
     'aaa ;;; aaa ;;; aaa ;;; aaa ;;; aaa ;;; aaa ;;; aaa ;;; aaa ;;; aaa ;;; aaa ;;; aaa ;;; aaa ;;; aaa ;;; sss lll sss lll sss lll sss lll sss lll sss lll sss lll sss lll sss lll sss lll sss lll sss lll sss lll sss lll sss lll  ddd kkk ddd kkk ddd kkk ddd kkk ddd kkk ddd kkk ddd kkk ddd kkk ddd kkk ddd kkk ddd kkk ddd kkk jjj fff jjj fff jjj fff jjj fff jjj fff jjj fff jjj fff jjj fff jjj fff jjj fff jjj fff jjj fff jjj fff jjj fff jjj jjj fff jjj ggg hhh ggg hhh ggg hhh ggg hhh ggg hhh ggg hhh ggg hhh ggg hhh ggg hhh ggg hhh ggg hhh ggg hhh ggg hhh aa ;; aa ;; aa ;; aa ;; aa ;; aa ;; aa ;; aa ;; aa ;; ss ll ss ll ss ll ss ll ss ll ss ll ss ll ss ll ss ll ss ll  dd kk  dd kk  dd kk  dd kk  dd kk  dd kk  dd kk  dd kk ff jj  ff jj ff jj  ff jj  ff jj  ff jj  ff jj  ff jj  ff jj  ff jj  gg hh  gg hh  gg hh gg hh  gg hh  gg hh  gg hh  gg hh asdfg ;lkjh asdfg ;lkjh  asdfg ;lkjh asdfg ;lkjh  asdfg ;lkjh asdfg ;lkjh asl;df asl;df  asl;df  asl;df  a;ls kdjf a;ls kdjf  a;ls kdjf  a;ls kdjf  a;ls kdjf ;als kdjf gh  ;als kdjf gh ;als kdjf gh  ;als kdjf gh jfkd ls;a jfkd ls;a jfkd ls;a jfkd ls;a jfkd ls;a fhj gfhj  gfhj  gfhj  gfhj  gfhj gdhk gdhk gdhk gdhkg dhk gdhk gdhk gdhk gdhk gdhk',
   TYPS1E12:
@@ -198,3 +198,5 @@ Then we fell to work, and in fifteen minutes, it really did seem as if fairies h
 
 `,
 };
+
+export default lessons;
