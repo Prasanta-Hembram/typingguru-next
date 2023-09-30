@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build-export": "next build && next export -o ./app/web_assets",
+    "clean": "rimraf ./desktop-app/web_assets",
+    "build-export": "pnpm clean &&  next build && next export -o ./desktop-app/web_assets",
     "start": "next start"
   },
   "dependencies": {
@@ -49,6 +50,7 @@
     "rimraf": "^5.0.1",
     "sass": "^1.52.0",
     "scss": "^0.2.4",
+    "rimraf": "^5.0.1",
     "tailwindcss": "^3.0.24",
     "typescript": "^5.2.2"
   }

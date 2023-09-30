@@ -88,7 +88,13 @@ const pageInfo: ILessonInfo | IStoryInfo = {
 };
 
 const defaultConfig: IConfig = {
-  visibleCards: {},
+  visibleCards: {
+    hands: true,
+    keyboard: true,
+    accuracy: true,
+    speed: true,
+    progress: true,
+  },
   statics: defaultStatics,
   storyInfo: pageInfo,
   language: 'English',
@@ -104,10 +110,19 @@ const ConfigContext = createContext<IConfigContext>({
 });
 
 const ConfigProvider = ({ children }: childProps) => {
-  const loadConfig = (): IConfig => {
+  const loadConfig = async (): Promise<IConfig> => {
     // load config from local storage
 
     if (typeof window !== 'undefined') {
+      // @ts-ignore
+      if (window.config) {
+        // @ts-ignore
+        const config = await window.config();
+        if (config) {
+          return JSON.parse(config);
+        }
+      }
+
       const config = localStorage.getItem('config');
       if (config) {
         return JSON.parse(config);
@@ -119,10 +134,19 @@ const ConfigProvider = ({ children }: childProps) => {
     return defaultConfig;
   };
 
-  const [config, setConfig] = useState<IConfig>(() => loadConfig());
+  const [config, setConfig] = useState<IConfig>(() => {
+    loadConfig().then((v) => setConfig(v));
+    return defaultConfig;
+  });
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
+      // @ts-ignore
+      if (window.setConfig) {
+        // @ts-ignore
+        window.setConfig(JSON.stringify(config));
+      }
+
       localStorage.setItem('config', JSON.stringify(config));
     }
   }, [config]);

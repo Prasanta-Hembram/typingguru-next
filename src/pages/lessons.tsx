@@ -207,6 +207,8 @@ const Lessons = () => {
             </span>
             <span title="home">{halfSecond.replace(/ /g, '\u00a0')}</span>
             <input
+              // eslint-disable-next-line jsx-a11y/no-autofocus
+              autoFocus
               inputMode="none"
               maxLength={1}
               id="inp"

@@ -25,6 +25,7 @@ const RandomType = () => {
         })}
       >
         <motion.textarea
+          autoFocus
           inputMode="none"
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
