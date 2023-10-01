@@ -6,6 +6,8 @@ export type ILanguage =
   | 'Bengali'
   | 'Tamil'
   | 'Urdu';
+  | 'Santali';
+  
 
 const languageList: ILanguage[] = [
   'English',
@@ -15,6 +17,8 @@ const languageList: ILanguage[] = [
   'Bengali',
   'Tamil',
   'Urdu',
+  'Santali';
+  
 ];
 
 export const validateLanguage = (language: string): ILanguage => {
