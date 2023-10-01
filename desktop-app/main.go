@@ -158,7 +158,6 @@ func main() {
 		return nil
 	})
 
-	// w.SetFullscreen(true)
 	w.Navigate(fmt.Sprintf("http://localhost:%d", port))
 	w.Run()
 }

@@ -58,7 +58,7 @@ const Home = () => {
                   icon: <FaRecycle />,
                 },
                 {
-                  link: 'https://github.com/abdheshnayak/typingguru-next',
+                  link: 'https://github.com/abdheshnayak/typingguru',
                   label: 'Github/Code',
                   icon: <FaGithub />,
                 },
