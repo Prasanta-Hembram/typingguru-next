@@ -1,4 +1,4 @@
-# Typing Guru [https://typing-guru.com](typing-guru.com)
+# Typing Guru [typing-guru.com](https://typing-guru.com)
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/eaf01d37-9125-4529-9d1f-f5705158e7b7/deploy-status)](https://app.netlify.com/sites/typing-guru/deploys)
 [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](./LICENSE.md)
